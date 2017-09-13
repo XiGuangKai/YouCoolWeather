@@ -13,7 +13,7 @@
         android:layout_marginTop="10dp"
         android:textColor="#000"
         android:textSize="20sp"
-        android:text="欧酷天气" />
+        android:text="U酷天气" />
 
     <ImageView
         android:id="@+id/imageView1"

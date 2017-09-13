@@ -70,7 +70,7 @@ public class ShowCountiesActivity extends AppCompatActivity {
         sqlite = new SQLiteCityManager(mContext, UtilityClass.YOU_COOL_DATABASE, null, 1);
 
         //设置标题
-        showCountyTitle.setText("请选择区(县)");
+        showCountyTitle.setText(R.string.tv_title_select_counties);
         GridView showCountyGrid  = (GridView) findViewById(R.id.show_county_gridview);
 
         GridAddCityAdapter mGridAddCityAdapter = new GridAddCityAdapter(mContext);
@@ -100,7 +100,7 @@ public class ShowCountiesActivity extends AppCompatActivity {
                     getCityWeatherInfo(selectCountyName);
                 }else{
                     DebugLog.v(TAG,"selected city has exist");
-                    UtilityClass.showToast(mContext,"不能重复添加");
+                    UtilityClass.showToast(mContext,getString(R.string.toast_context_not_repeat_add_county));
                 }
             }
         });
@@ -114,7 +114,7 @@ public class ShowCountiesActivity extends AppCompatActivity {
      */
     private void getCityWeatherInfo(final String cityName) {
 
-        UtilityClass.showProgressDialog(mContext,"正在获取天气数据");
+        UtilityClass.showProgressDialog(mContext,getString(R.string.progress_dialog_getting_weather_info));
         //拼凑访问和风天气的API地址
         String weatherUrl = "https://free-api.heweather.com/v5/weather?city="+cityName+"&key=6616624b9a104d3aa3afe5dfef16783c";
 
@@ -162,7 +162,7 @@ public class ShowCountiesActivity extends AppCompatActivity {
 
         cv.put("city_name", selectCounty.getText().toString());
         cv.put("image_url", "");
-        cv.put("weather", "点击更新");
+        cv.put("weather", R.string.db_click_update);
         cv.put("temperature", "0℃");
         db.insert(UtilityClass.YOU_COOL_WEATHER, "city_name", cv);
     }
@@ -200,7 +200,7 @@ public class ShowCountiesActivity extends AppCompatActivity {
             getCountiesList();
         }else{
             DebugLog.e(TAG,"network is not useful");
-            UtilityClass.showToast(mContext,"未检测到可用网络，无法获取城市信息，请检查网络连接状态");
+            UtilityClass.showToast(mContext,getString(R.string.toast_internet_no_useful_to_get_city));
         }
         DebugLog.d(TAG,"onResume() complete");
     }
@@ -241,7 +241,7 @@ public class ShowCountiesActivity extends AppCompatActivity {
                     insertData();
 
                     //弹出Toast
-                    UtilityClass.showToast(mContext,"获取天气数据失败");
+                    UtilityClass.showToast(mContext,getString(R.string.toast_content_get_weather_info_failed));
 
                     //关闭所有选择城市界面
                     if (mShowProvinceActivity != null){
@@ -325,7 +325,7 @@ public class ShowCountiesActivity extends AppCompatActivity {
      * @param address 获取城市数据的地址
      */
     private void getCitiesByInternet(String address) {
-        UtilityClass.showProgressDialog(mContext,"正在获取区(县)");
+        UtilityClass.showProgressDialog(mContext,getString(R.string.progress_dialog_getting_counties));
 
         HttpUtil.sendOkHttpRequest(address, new Callback() {
             @Override
@@ -346,7 +346,7 @@ public class ShowCountiesActivity extends AppCompatActivity {
                 Message msg = new Message();
                 msg.what = UtilityClass.MESSAGE_FAILED;
                 mHandler.sendMessage(msg);
-                UtilityClass.showToast(mContext,"网络发生错误，请稍后重试");
+                UtilityClass.showToast(mContext,getString(R.string.toast_internet_error));
             }
         });
     }

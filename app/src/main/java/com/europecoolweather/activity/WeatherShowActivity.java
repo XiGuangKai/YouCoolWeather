@@ -162,7 +162,7 @@ public class WeatherShowActivity extends AppCompatActivity {
                     initWeatherData();
                 }else{
                     DebugLog.e(TAG,"network is not available");
-                    UtilityClass.showToast(mContext, "未检测到可用网络，请检查网络连接状态");
+                    UtilityClass.showToast(mContext, getString(R.string.toast_detect_internet_no_useful));
 
 
                     //关闭更新动画
@@ -189,7 +189,7 @@ public class WeatherShowActivity extends AppCompatActivity {
                 if (UtilityClass.isNetWorkAvailable(mContext)) {
                     startRequestLocation();
                 }else{
-                    UtilityClass.showToast(mContext,"未检测到可用网络，请检查网络连接状态");
+                    UtilityClass.showToast(mContext,getString(R.string.toast_detect_internet_no_useful));
                 }
             }
         });
@@ -296,7 +296,7 @@ public class WeatherShowActivity extends AppCompatActivity {
                         startRequestLocation();
                     }else{
                         if (!isBackgroundUpdate) {
-                            UtilityClass.showToast(mContext,"未检测到可用网络，请检查网络连接状态");
+                            UtilityClass.showToast(mContext,getString(R.string.toast_detect_internet_no_useful));
                         }
                     }
                 }else {
@@ -335,7 +335,7 @@ public class WeatherShowActivity extends AppCompatActivity {
         } else {
             DebugLog.e(TAG,"network is not available");
             if (!isBackgroundUpdate) {
-                UtilityClass.showToast(mContext, "未检测到可用网络，请检查网络连接状态");
+                UtilityClass.showToast(mContext, getString(R.string.toast_detect_internet_no_useful));
             }
 
             //关闭更新动画
@@ -354,7 +354,7 @@ public class WeatherShowActivity extends AppCompatActivity {
         DebugLog.d(TAG,"get " + cityName + " weather info");
 
         //显示progressDialog
-        UtilityClass.showProgressDialog(mContext,"更新天气数据");
+        UtilityClass.showProgressDialog(mContext,getString(R.string.progress_dialog_updating_weather_info));
 
         //拼凑访问和风天气的API地址
         String weatherUrl = "https://free-api.heweather.com/v5/weather?city="+cityName+"&key=6616624b9a104d3aa3afe5dfef16783c";
@@ -375,10 +375,10 @@ public class WeatherShowActivity extends AppCompatActivity {
                             UtilityClass.insertOrUpdateDatabase(mContext,weather,UtilityClass.setWeatherPictureToString(mContext,weather.now.more.info),responseText);
 
                             //弹窗提示信息已经更新
-                            UtilityClass.showToast(mContext,"已更新");
+                            UtilityClass.showToast(mContext,getString(R.string.toast_weather_info_finished));
                         } else {
                             DebugLog.e(TAG,"get weather info failed");
-                            UtilityClass.showToast(mContext,"获取天气信息失败");
+                            UtilityClass.showToast(mContext,getString(R.string.toast_get_weather_info_failed));
                         }
 
                         //关闭Progress Dialog
@@ -399,7 +399,7 @@ public class WeatherShowActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         DebugLog.e(TAG,"OkHttpRequest failed to get the weather info");
-                        UtilityClass.showToast(mContext,"获取天气信息失败");
+                        UtilityClass.showToast(mContext,getString(R.string.toast_get_weather_info_failed));
 
                         //关闭Progress Dialog
                         UtilityClass.closeProgressDialog();
@@ -460,7 +460,7 @@ public class WeatherShowActivity extends AppCompatActivity {
                         mCountDownTimer = null;
                         isBackgroundUpdate = false;
 
-                        UtilityClass.showToast(mContext,"半小时没有检测到可用的网络，所以关闭APP");
+                        UtilityClass.showToast(mContext,getString(R.string.toast_no_useful_thirty_minutes));
                         finish();
                     }
                 }.start();
@@ -566,10 +566,10 @@ public class WeatherShowActivity extends AppCompatActivity {
                 pm25Text.setText(weather.aqi.city.pm25);
             }
 
-            String comfort = "舒适度：" + weather.suggestion.comfort.info;
-            String carWash = "洗车指数：" + weather.suggestion.carWash.info;
-            String sport = "运动建议：" + weather.suggestion.sport.info;
-            String Uv = "紫外线：" + weather.suggestion.uvIntensity.brf + "\n" + weather.suggestion.uvIntensity.info;
+            String comfort = getString(R.string.string_comfort) + weather.suggestion.comfort.info;
+            String carWash = getString(R.string.string_car_wash_index) + weather.suggestion.carWash.info;
+            String sport = getString(R.string.string_sports_advice) + weather.suggestion.sport.info;
+            String Uv = getString(R.string.string_UV) + weather.suggestion.uvIntensity.brf + "\n" + weather.suggestion.uvIntensity.info;
             comfortText.setText(comfort);
             carWashText.setText(carWash);
             sportText.setText(sport);
@@ -578,8 +578,8 @@ public class WeatherShowActivity extends AppCompatActivity {
             if (weather.alarms != null) {
                 mAlarmLayout.setVisibility(View.VISIBLE);
                 DebugLog.d(TAG, "alarms data is not null");
-                String alarmLevel = "级别：" + weather.alarms.level;
-                String alarmStatus = "状态：" + weather.alarms.stat;
+                String alarmLevel = getString(R.string.string_level) + weather.alarms.level;
+                String alarmStatus = getString(R.string.string_status) + weather.alarms.stat;
                 String alarmInfo = weather.alarms.info;
                 String alarmTitle = weather.alarms.title;
                 mAlarmLevelText.setText(alarmLevel);
@@ -590,7 +590,7 @@ public class WeatherShowActivity extends AppCompatActivity {
             weatherLayout.setVisibility(View.VISIBLE);
         }else {
             DebugLog.e(TAG,"weather is null");
-            UtilityClass.showToast(mContext,"显示天气信息失败，请刷新重试");
+            UtilityClass.showToast(mContext,getString(R.string.toast_show_weather_info_failed));
         }
     }
 
@@ -648,7 +648,7 @@ public class WeatherShowActivity extends AppCompatActivity {
                 startRequestLocation();
             }else{
                 if (!isBackgroundUpdate) {
-                    UtilityClass.showToast(mContext,"未检测到可用网络，请检查网络连接状态");
+                    UtilityClass.showToast(mContext,getString(R.string.toast_detect_internet_no_useful));
                 }
             }
         }
@@ -662,7 +662,7 @@ public class WeatherShowActivity extends AppCompatActivity {
                     for (int result:grantResults){
                         if (result != PackageManager.PERMISSION_GRANTED){
                             DebugLog.d(TAG,"need to allow all permission");
-                            UtilityClass.showToast(mContext,"请允许所有申请的所必需的权限，否则软件无法使用");
+                            UtilityClass.showToast(mContext,getString(R.string.toast_please_allow_all_permission));
 
                             finish();
                             return;
@@ -677,12 +677,12 @@ public class WeatherShowActivity extends AppCompatActivity {
                         startRequestLocation();
                     }else{
                         if (!isBackgroundUpdate) {
-                            UtilityClass.showToast(mContext,"未检测到可用网络，请检查网络连接状态");
+                            UtilityClass.showToast(mContext,getString(R.string.toast_detect_internet_no_useful));
                         }
                     }
                 }else {
                     DebugLog.e(TAG,"request permission error");
-                    UtilityClass.showToast(mContext,"请求运行时权限发生未知错误");
+                    UtilityClass.showToast(mContext,getString(R.string.toast_allow_permission_error));
                     finish();
                 }
                 break;
@@ -693,7 +693,7 @@ public class WeatherShowActivity extends AppCompatActivity {
 
     private void startRequestLocation(){
         //开启定位Progress Dialog
-        UtilityClass.showProgressDialog(mContext,"正在定位");
+        UtilityClass.showProgressDialog(mContext,getString(R.string.progress_dialog_being_location));
 
         DebugLog.d(TAG,"start request location");
         initLocation();
@@ -734,38 +734,38 @@ public class WeatherShowActivity extends AppCompatActivity {
                 case BDLocation.TypeGpsLocation://GPS定位结果
                 case BDLocation.TypeNetWorkLocation://网络定位结果
                 case BDLocation.TypeOffLineLocation:// 离线定位结果
-                    currentPosition.append("纬度：").append(location.getLatitude()).append("\n")
-                            .append("经度：").append(location.getLongitude()).append("\n")
-                            .append("国家：").append(location.getCountry()).append("\n")
-                            .append("省：").append(location.getProvince()).append("\n")
-                            .append("市：").append(location.getCity()).append("\n")
-                            .append("区：").append(location.getDistrict()).append("\n")
-                            .append("街道：").append(location.getStreet()).append("\n")
-                            .append("定位方式：");
+                    currentPosition.append("latitude:").append(location.getLatitude()).append("\n")
+                            .append("longitude:").append(location.getLongitude()).append("\n")
+                            .append("country:").append(location.getCountry()).append("\n")
+                            .append("province:").append(location.getProvince()).append("\n")
+                            .append("city:").append(location.getCity()).append("\n")
+                            .append("area:").append(location.getDistrict()).append("\n")
+                            .append("street:").append(location.getStreet()).append("\n")
+                            .append("targeting:");
 
                     if (BDLocation.TypeGpsLocation == location.getLocType()){
                         currentPosition.append("GPS");
                     }else if (BDLocation.TypeNetWorkLocation == location.getLocType()){
-                        currentPosition.append("网络");
+                        currentPosition.append("internet");
                     }else if (BDLocation.TypeOffLineLocation == location.getLocType()) {
-                        currentPosition.append("离线定位");
+                        currentPosition.append("offline location");
                     }
                     break;
                 case BDLocation.TypeServerError:
-                    currentPosition.append("服务端网络定位失败");
+                    currentPosition.append("server network location failed");
                     break;
                 case BDLocation.TypeNetWorkException:
-                    currentPosition.append("网络不通导致定位失败，请检查网络是否通畅");
+                    currentPosition.append("network fails to locate, please check whether the network is smooth");
                     break;
                 case BDLocation.TypeCriteriaException:
-                    currentPosition.append("无法获取有效定位依据导致定位失败，一般是由于手机的原因，处于飞行模式下一般会造成这种结果，可以试着重启手机");
+                    currentPosition.append("can not get effective positioning based on lead to failure, usually due to mobile phone reasons, in flight mode will generally cause this result, you can try to restart the phone");
                     break;
                 default:
-                    currentPosition.append("未知的定位异常");
+                    currentPosition.append("unknown positioning exception");
                     break;
             }
 
-            DebugLog.d(TAG, currentPosition.toString());
+            DebugLog.e(TAG, currentPosition.toString());
 
             if (location.getDistrict() != null) {
 

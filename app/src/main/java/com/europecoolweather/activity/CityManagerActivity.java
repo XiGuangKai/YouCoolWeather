@@ -78,8 +78,8 @@ public class CityManagerActivity extends AppCompatActivity {
             public void onClick(View v) {
                 AlertDialog.Builder alertDialog = new AlertDialog.Builder(mContext,R.style.ThemeAppCompatLightDialogAlertSelf);
                 alertDialog.setIcon(R.drawable.cool_weather_icon);
-                alertDialog.setTitle("删除所有城市");
-                alertDialog.setMessage("此操作会将所有目前管理的城市清除，返回天气界面后将使用定位功能重新获取天气。"+"\n"+"是否确认删除所有城市");
+                alertDialog.setTitle(R.string.dialog_delete_city_title);
+                alertDialog.setMessage(R.string.dialog_delete_city_message);
 
                 alertDialog.setPositiveButton(R.string.dialog_positive_button_exit_app, new DialogInterface.OnClickListener() {
                     @Override
@@ -154,7 +154,7 @@ public class CityManagerActivity extends AppCompatActivity {
                     }
                 } else {
                     DebugLog.e(TAG,"network is not useful");
-                    UtilityClass.showToast(mContext,"未检测到可用网络，无法获取城市信息，请检查网络连接状态");
+                    UtilityClass.showToast(mContext,getString(R.string.toast_internet_no_useful_to_get_city));
                 }
             }
         });

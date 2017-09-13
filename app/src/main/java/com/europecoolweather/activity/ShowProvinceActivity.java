@@ -62,7 +62,7 @@ public class ShowProvinceActivity extends AppCompatActivity {
      */
     private void initView()
     {
-        addCityTitle.setText("请选择省");
+        addCityTitle.setText(R.string.tv_title_select_province);
         GridView addCityGrid  = (GridView) findViewById(R.id.addcity_gridview);
 
         GridAddCityAdapter mGridAddCityAdapter = new GridAddCityAdapter(mContext);
@@ -100,7 +100,7 @@ public class ShowProvinceActivity extends AppCompatActivity {
                     UtilityClass.currentLevel = UtilityClass.LEVEL_CITY;
                 } else {
                     DebugLog.e(TAG,"network is not useful");
-                    UtilityClass.showToast(mContext,"未检测到可用网络，无法获取城市信息，请检查网络连接状态");
+                    UtilityClass.showToast(mContext,getString(R.string.toast_internet_no_useful_to_get_city));
                 }
             }
         });
@@ -117,7 +117,7 @@ public class ShowProvinceActivity extends AppCompatActivity {
             getProvincesList();
         }else{
             DebugLog.e(TAG,"network is not useful");
-            UtilityClass.showToast(mContext,"未检测到可用网络，无法获取城市信息，请检查网络连接状态");
+            UtilityClass.showToast(mContext,getString(R.string.toast_internet_no_useful_to_get_city));
         }
         DebugLog.d(TAG,"onResume() complete");
     }
@@ -210,7 +210,7 @@ public class ShowProvinceActivity extends AppCompatActivity {
      * @param address 获取省数据的地址
      */
     private void getProvincesByInternet(String address) {
-        UtilityClass.showProgressDialog(mContext,"正在获取省");
+        UtilityClass.showProgressDialog(mContext,getString(R.string.progress_dialog_content_get_province));
 
         HttpUtil.sendOkHttpRequest(address, new Callback() {
             @Override
@@ -218,7 +218,7 @@ public class ShowProvinceActivity extends AppCompatActivity {
                 String responseText = response.body().string();
                 boolean result = UtilityClass.handleProvinceResponse(responseText);
 
-                DebugLog.d(TAG,"Response result = " + result);
+                DebugLog.d(TAG,"response result = " + result);
                 if (result) {
                     DebugLog.d(TAG,"type is province call getProvincesList()");
                     getProvincesList();
@@ -231,7 +231,7 @@ public class ShowProvinceActivity extends AppCompatActivity {
                 Message msg = new Message();
                 msg.what = UtilityClass.MESSAGE_FAILED;
                 mHandler.sendMessage(msg);
-                UtilityClass.showToast(mContext,"网络发生错误，请稍后重试");
+                UtilityClass.showToast(mContext,getString(R.string.toast_internet_error));
             }
         });
     }

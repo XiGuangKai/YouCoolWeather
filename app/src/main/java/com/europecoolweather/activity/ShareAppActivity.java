@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 
+import com.europecoolweather.R;
 import com.europecoolweather.util.DebugLog;
 import com.europecoolweather.util.UtilityClass;
 
@@ -27,12 +28,12 @@ public class ShareAppActivity{
     public static void shareApp(Activity mActivity)
     {
         if (UtilityClass.isNetWorkAvailable(mActivity)) {
-            String shareAppContent = "我发现了一款简约好用的APP --> 欧酷天气，欢迎关注作者的博客http://blog.csdn.net/xiaoxiangyuhai?viewmode=list";
+            String shareAppContent = mActivity.getString(R.string.share_app_content);
 
             DebugLog.d(TAG, "copy cool_weather_icon image to " + DEFAULT_FILE_PATH);
             Bitmap mBitmap = BitmapFactory.decodeResource(mActivity.getResources(), com.europecoolweather.R.drawable.cool_weather_icon);
 
-            String imgName = "欧酷天气.png";
+            String imgName = mActivity.getString(R.string.app_name)+".png";
             if (saveImgToDisk(imgName, mBitmap)) {
 
                 Intent localIntent = new Intent(Intent.ACTION_SEND);
@@ -46,11 +47,11 @@ public class ShareAppActivity{
                 DebugLog.d(TAG, "share info success");
             } else {
                 DebugLog.d(TAG, "share image not exists");
-                UtilityClass.showToast(mActivity,"分享信息失败");
+                UtilityClass.showToast(mActivity,mActivity.getString(R.string.share_app_failed));
             }
         }else{
             DebugLog.e(TAG,"network is not useful");
-            UtilityClass.showToast(mActivity,"未检测到可用网络，无法分享APP信息，请检查网络连接状态");
+            UtilityClass.showToast(mActivity,mActivity.getString(R.string.toast_internet_no_useful_for_share_app));
         }
     }
 

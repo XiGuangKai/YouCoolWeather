@@ -97,8 +97,8 @@ public class CityManagerAdapter extends BaseAdapter {
                 final String cityName = mCityManagerEntityList.get(position).getCityName();
                 AlertDialog.Builder alertDialog = new AlertDialog.Builder(mContext,R.style.ThemeAppCompatLightDialogAlertSelf);
                 alertDialog.setIcon(R.drawable.cool_weather_icon);
-                alertDialog.setTitle("删除城市");
-                alertDialog.setMessage("是否确认删除城市 : " + cityName);
+                alertDialog.setTitle(R.string.dialog_delete_city_title);
+                alertDialog.setMessage(R.string.dialog_confirm_delete_city_content + cityName);
 
                 alertDialog.setPositiveButton(R.string.dialog_positive_button_exit_app, new DialogInterface.OnClickListener() {
                     @Override
@@ -110,7 +110,7 @@ public class CityManagerAdapter extends BaseAdapter {
                         //删除数据库中所存在的数据记录
                         int index = db.delete(UtilityClass.YOU_COOL_WEATHER, "city_name = ?", new String []{cityName});
                         if(index == 0){
-                            UtilityClass.showToast(mContext,"删除失败，请重试");
+                            UtilityClass.showToast(mContext,mContext.getString(R.string.dialog_delete_city_failed));
                         }
 
                         String mDefaultCityName = UtilityClass.getCityName(mContext,UtilityClass.DEFAULT_CITY_TYPE);
@@ -173,16 +173,16 @@ public class CityManagerAdapter extends BaseAdapter {
                     UtilityClass.setCityName(mContext,UtilityClass.DEFAULT_CITY_TYPE,cityName);
 
                     mClickViewButton.setText(R.string.btn_normal);
-                    UtilityClass.showToast(mContext,"设置默认成功");
+                    UtilityClass.showToast(mContext,mContext.getString(R.string.toast_set_default_success));
                 }else if (btnNormalStatus.equals(mContext.getString(R.string.btn_normal))){
 
                     DebugLog.d(TAG,"remove weather key and change button text is setNormal");
                     UtilityClass.removeCityName(mContext,UtilityClass.DEFAULT_CITY_TYPE);
 
                     mClickViewButton.setText(R.string.btn_set_normal);
-                    UtilityClass.showToast(mContext,"取消默认成功");
+                    UtilityClass.showToast(mContext,mContext.getString(R.string.toast_cancel_set_default_success));
                 }else {
-                    UtilityClass.showToast(mContext,"不能识别的状态");
+                    UtilityClass.showToast(mContext,mContext.getString(R.string.toast_unrecognized_state));
                 }
 
                 //更新界面

@@ -58,7 +58,7 @@ public class ShowCitiesActivity extends AppCompatActivity {
 
     private void initView()
     {
-        showCityTitle.setText("请选择城市");
+        showCityTitle.setText(R.string.tv_title_select_city);
         UtilityClass.currentLevel = UtilityClass.LEVEL_CITY;
         GridView addCityGrid  = (GridView) findViewById(R.id.show_city_gridview);
 
@@ -97,7 +97,7 @@ public class ShowCitiesActivity extends AppCompatActivity {
                     UtilityClass.currentLevel = UtilityClass.LEVEL_COUNTY;
                 } else {
                     DebugLog.e(TAG,"network is not useful");
-                    UtilityClass.showToast(mContext,"未检测到可用网络，无法获取城市信息，请检查网络连接状态");
+                    UtilityClass.showToast(mContext,getString(R.string.toast_internet_no_useful_to_get_city));
                 }
             }
         });
@@ -114,7 +114,7 @@ public class ShowCitiesActivity extends AppCompatActivity {
             getCitiesList();
         }else{
             DebugLog.e(TAG,"network is not useful");
-            UtilityClass.showToast(mContext,"未检测到可用网络，无法获取城市信息，请检查网络连接状态");
+            UtilityClass.showToast(mContext,getString(R.string.toast_internet_no_useful_to_get_city));
         }
         DebugLog.d(TAG,"onResume() complete");
     }
@@ -205,7 +205,7 @@ public class ShowCitiesActivity extends AppCompatActivity {
      * 根据传入的地址和类型从服务器上查询省市县数据
      */
     private void getCitiesByInternet(String address) {
-        UtilityClass.showProgressDialog(mContext,"正在获取市");
+        UtilityClass.showProgressDialog(mContext,getString(R.string.progress_dialog_content_get_cities));
 
         HttpUtil.sendOkHttpRequest(address, new Callback() {
             @Override
@@ -226,7 +226,7 @@ public class ShowCitiesActivity extends AppCompatActivity {
                 Message msg = new Message();
                 msg.what = UtilityClass.MESSAGE_FAILED;
                 mHandler.sendMessage(msg);
-                UtilityClass.showToast(mContext,"网络发生错误，请稍后重试");
+                UtilityClass.showToast(mContext,getString(R.string.toast_internet_error));
             }
         });
     }
