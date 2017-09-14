@@ -21,8 +21,8 @@ public class AboutMeActivity extends AppCompatActivity {
 
     private void initView()
     {
-        TextView aboutMeTv=(TextView) findViewById(R.id.about_me_tv);
-        Linkify.addLinks(aboutMeTv, Linkify.ALL);
+        //TextView aboutMeTv=(TextView) findViewById(R.id.about_me_tv);
+        //Linkify.addLinks(aboutMeTv, Linkify.ALL);
         DebugLog.d(TAG,"initView() complete");
     }
 }

@@ -43,7 +43,7 @@
         android:layout_centerHorizontal="true"
         android:textColor="#000"
         android:textSize="20sp"
-        android:text="关于作者：" />
+        android:text="@string/tv_about_author" />
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -36,7 +36,7 @@
             android:layout_marginTop="7dp"
             android:textSize="18sp"
             android:textColor="#000"
-            android:text="简约风格的天气APP"/>
+            android:text="@string/tv_simple_style"/>
 
     </LinearLayout>
     <Button
@@ -49,33 +49,9 @@
         android:drawableLeft="@drawable/ic_add_city"
         android:gravity="center"
         android:padding="10dp"
-        android:text="添加城市"
+        android:text="@string/tv_add_city"
         android:textSize="18sp" />
-<!--
-    <Button
-        android:id="@+id/btn_life"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/btn_city_manager"
-        android:background="@drawable/drawerlayout_bt_bg"
-        android:drawableLeft="@drawable/ic_dl_green_m"
-        android:gravity="center"
-        android:padding="10dp"
-        android:text="生活指数"
-        android:onClick="onClick"
-        android:textSize="18sp" />
--->
-    <!--<Button
-        android:id="@+id/btn_change_bg"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/btn_city_manager"
-        android:background="@drawable/drawerlayout_bt_bg"
-        android:drawableLeft="@drawable/ic_dl_green_m"
-        android:gravity="center"
-        android:padding="10dp"
-        android:text="更换皮肤"
-        android:textSize="18sp" />-->
+
     <Button
         android:id="@+id/btn_share_app"
         android:layout_width="match_parent"
@@ -85,7 +61,7 @@
         android:drawableLeft="@drawable/ic_share_app"
         android:gravity="center"
         android:padding="10dp"
-        android:text="分享应用"
+        android:text="@string/tv_share_app"
         android:textSize="18sp" />
 
     <Button
@@ -97,7 +73,7 @@
         android:drawableLeft="@drawable/ic_about_author"
         android:gravity="center"
         android:padding="10dp"
-        android:text="关于作者"
+        android:text="@string/tv_about_app"
         android:textSize="18sp" />
 
     <Button
@@ -109,7 +85,7 @@
         android:background="@drawable/drawerlayout_bt_bg"
         android:gravity="center"
         android:padding="10dp"
-        android:text="退出程序"
+        android:text="@string/tv_dropout_app"
         android:textSize="18sp" />
 
 </RelativeLayout>

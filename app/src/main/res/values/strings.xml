@@ -1,6 +1,12 @@
 <resources>
     <string name="app_name">U酷天气</string>
 
+    <!--MainFragment-->
+    <string name="tv_simple_style">简约风格的天气APP</string>
+    <string name="tv_add_city">添加城市</string>
+    <string name="tv_share_app">分享应用</string>
+    <string name="tv_about_app">关于U酷</string>
+    <string name="tv_dropout_app">退出程序</string>
 
     <!--退出APP-->
     <string name="dialog_title_exit_app">退出 U酷天气</string>
@@ -13,10 +19,10 @@
     <string name="btn_normal">默认</string>
 
     <!--关于作者-->
-    <string name="author">U酷天气 @：回眸-已劃句点 All rights reserved </string>
-    <string name="about_me">
-           作者：@：回眸-已劃句点
+    <string name="author">Copyright © 2017-2020 回眸-已劃句点 All rights reserved</string>
+    <string name="about_me">回眸-已劃句点
     http://blog.csdn.net/xiaoxiangyuhai?viewmode=list 欢迎大家访问我的博客  </string>
+    <string name="tv_about_author">关于作者：</string>
 
     <!--主界面now.xml布局显示-->
     <string name="tv_air_quality">空气质量:</string>
@@ -24,13 +30,13 @@
     <string name="tv_pm25">PM2.5</string>
 
     <!--CityManagerActivity-->
-    <string name="dialog_delete_all_city_title">删除所有城市</string>>
+    <string name="dialog_delete_all_city_title">删除所有城市</string>
     <string name="dialog_delete_city_message">此操作会将所有目前管理的城市清除，返回天气界面后将使用定位功能重新获取天气。
         是否确认删除所有城市</string>
     <string name="toast_internet_no_useful_to_get_city">未检测到可用网络，无法获取城市信息，请检查网络连接状态</string>
 
     <!--ShareAppActivity-->
-    <string name="share_app_content">我发现了一款简约好用的APP --> U酷天气，欢迎关注作者的博客http://blog.csdn.net/xiaoxiangyuhai?viewmode=list</string>
+    <string name="share_app_content">我发现了一款简约好用的APP "U酷天气"，欢迎关注作者的博客 http://blog.csdn.net/xiaoxiangyuhai?viewmode=list</string>
     <string name="share_app_failed">分享信息失败</string>
     <string name="toast_internet_no_useful_for_share_app">未检测到可用网络，无法分享APP信息，请检查网络连接状态</string>
 
@@ -53,7 +59,7 @@
 
     <!--WeatherShowActivity-->
     <string name="toast_detect_internet_no_useful">未检测到可用网络，请检查网络连接状态</string>
-    <string name="toast_weather_info_finished">天气信息已更新</string>
+    <string name="toast_weather_info_finished">天气数据已更新</string>
     <string name="toast_get_weather_info_failed">获取天气信息失败</string>
     <string name="toast_no_useful_thirty_minutes">连续30分钟没有检测到可用的网络，所以关闭APP</string>
     <string name="progress_dialog_updating_weather_info">正在更新天气数据</string>
@@ -75,4 +81,5 @@
     <string name="toast_set_default_success">设置默认成功</string>
     <string name="toast_cancel_set_default_success">取消默认成功</string>
     <string name="toast_unrecognized_state">不能识别的状态</string>
+
 </resources>

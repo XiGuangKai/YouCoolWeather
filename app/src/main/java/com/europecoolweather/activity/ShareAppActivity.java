@@ -33,7 +33,7 @@ public class ShareAppActivity{
             DebugLog.d(TAG, "copy cool_weather_icon image to " + DEFAULT_FILE_PATH);
             Bitmap mBitmap = BitmapFactory.decodeResource(mActivity.getResources(), com.europecoolweather.R.drawable.cool_weather_icon);
 
-            String imgName = mActivity.getString(R.string.app_name)+".png";
+            String imgName = "U酷天气.png";
             if (saveImgToDisk(imgName, mBitmap)) {
 
                 Intent localIntent = new Intent(Intent.ACTION_SEND);
