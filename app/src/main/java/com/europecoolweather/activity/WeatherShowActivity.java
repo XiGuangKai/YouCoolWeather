@@ -783,6 +783,20 @@ public class WeatherShowActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onStop(){
+        super.onStop();
+
+        //停止定位
+        stopRequestLocation();
+
+        //停止service
+        stopAutoUpdateWeatherService();
+
+        //注销广播
+        unregisterUpdateWeatherInfoReceiver();
+    }
+
+    @Override
     protected void onDestroy(){
         super.onDestroy();
         /*
@@ -793,9 +807,7 @@ public class WeatherShowActivity extends AppCompatActivity {
             mCountDownTimer.cancel();
             mCountDownTimer = null;
         }
-        stopRequestLocation();//停止定位
-        stopAutoUpdateWeatherService();//停止service
-        unregisterUpdateWeatherInfoReceiver();//注销广播
+
         isBackgroundUpdate = false;
     }
 
