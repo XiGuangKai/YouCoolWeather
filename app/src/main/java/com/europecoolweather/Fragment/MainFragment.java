@@ -17,6 +17,7 @@ import com.europecoolweather.activity.CityManagerActivity;
 import com.europecoolweather.activity.ShareAppActivity;
 import com.europecoolweather.activity.WeatherShowActivity;
 import com.europecoolweather.util.DebugLog;
+import com.europecoolweather.util.UtilityClass;
 
 /**
  * DrawerLayout的抽屉Fragment
@@ -37,11 +38,14 @@ public class MainFragment extends Fragment implements View.OnClickListener{
     //关于作者
     private Button btnAboutAuthor;
 
+    //显示默认城市
+    private Button btnShowDefaultCity;
+
     //退出APP
     private Button btnExitApp;
 
+    //构造方法
     public MainFragment() {
-        // Required empty public constructor
     }
 
 
@@ -53,6 +57,7 @@ public class MainFragment extends Fragment implements View.OnClickListener{
         btnCityManager = (Button)view.findViewById(R.id.btn_city_manager);
         btnShareApp = (Button)view.findViewById(R.id.btn_share_app);
         btnAboutAuthor = (Button)view.findViewById(R.id.btn_about_author);
+        btnShowDefaultCity = (Button)view.findViewById(R.id.btn_show_default_city);
         btnExitApp = (Button)view.findViewById(R.id.btn_exit_app);
         DebugLog.d(TAG,"onCreateView() finished");
         return view;
@@ -65,6 +70,7 @@ public class MainFragment extends Fragment implements View.OnClickListener{
         //btnChangeBg.setOnClickListener(this);
         btnShareApp.setOnClickListener(this);
         btnAboutAuthor.setOnClickListener(this);
+        btnShowDefaultCity.setOnClickListener(this);
         btnExitApp.setOnClickListener(this);
         DebugLog.d(TAG,"onActivityCreated() finished");
     }
@@ -96,6 +102,24 @@ public class MainFragment extends Fragment implements View.OnClickListener{
                 closeLeftDrawerLayout();
                 Intent aboutMeIntent = new Intent(getActivity(),AboutMeActivity.class);
                 startActivity(aboutMeIntent);
+                break;
+            case R.id.btn_show_default_city:
+                DebugLog.d(TAG,"click show default city");
+                if (!(UtilityClass.getCityName(getActivity(),UtilityClass.DEFAULT_CITY_TYPE) == null)) {
+                    DebugLog.d(TAG,"show default city");
+                    //将显示级别设置为默认
+                    UtilityClass.SHOW_CITY_WEATHER_INFO = UtilityClass.SHOW_DEFAULT_CITY;
+
+                    //启动主界面
+                    Intent intent = new Intent(getActivity(), WeatherShowActivity.class);
+                    startActivity(intent);
+
+                    //关闭drawer
+                    closeLeftDrawerLayout();
+                }else {
+                    DebugLog.e(TAG,"no default city");
+                    UtilityClass.showToast(getActivity(),getString(R.string.toast_select_default_city));
+                }
                 break;
             case R.id.btn_exit_app:
                 //关闭drawer

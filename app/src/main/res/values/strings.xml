@@ -5,8 +5,10 @@
     <string name="tv_simple_style">简约风格的天气APP</string>
     <string name="tv_add_city">添加城市</string>
     <string name="tv_share_app">分享应用</string>
+    <string name="btn_show_default_city">默认城市</string>
     <string name="tv_about_app">关于U酷</string>
     <string name="tv_dropout_app">退出程序</string>
+    <string name="toast_select_default_city">请先设置默认城市</string>
 
     <!--退出APP-->
     <string name="dialog_title_exit_app">退出 U酷天气</string>

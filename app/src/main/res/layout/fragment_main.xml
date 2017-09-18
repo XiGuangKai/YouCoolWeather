@@ -46,7 +46,7 @@
         android:layout_below="@id/linearLayout1"
         android:layout_marginTop="20dp"
         android:background="@drawable/drawerlayout_bt_bg"
-        android:drawableLeft="@drawable/ic_add_city"
+        android:drawableLeft="@drawable/drawerlayout_add_city_bg"
         android:gravity="center"
         android:padding="10dp"
         android:text="@string/tv_add_city"
@@ -58,19 +58,31 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/btn_city_manager"
         android:background="@drawable/drawerlayout_bt_bg"
-        android:drawableLeft="@drawable/ic_share_app"
+        android:drawableLeft="@drawable/drawerlayout_share_app_bg"
         android:gravity="center"
         android:padding="10dp"
         android:text="@string/tv_share_app"
         android:textSize="18sp" />
 
     <Button
-        android:id="@+id/btn_about_author"
+        android:id="@+id/btn_show_default_city"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/btn_share_app"
         android:background="@drawable/drawerlayout_bt_bg"
-        android:drawableLeft="@drawable/ic_about_author"
+        android:drawableLeft="@drawable/drawerlayout_default_city_bg"
+        android:gravity="center"
+        android:padding="10dp"
+        android:text="@string/btn_show_default_city"
+        android:textSize="18sp" />
+
+    <Button
+        android:id="@+id/btn_about_author"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/btn_show_default_city"
+        android:background="@drawable/drawerlayout_bt_bg"
+        android:drawableLeft="@drawable/drawerlayout_about_author_bg"
         android:gravity="center"
         android:padding="10dp"
         android:text="@string/tv_about_app"
