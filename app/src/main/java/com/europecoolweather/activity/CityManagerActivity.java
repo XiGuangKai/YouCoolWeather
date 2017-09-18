@@ -142,14 +142,20 @@ public class CityManagerActivity extends AppCompatActivity {
                     } else {
                         intent = new Intent(mContext, WeatherShowActivity.class);
                         String cityName = mCityManagerEntityList.get(position).getCityName();
-                        DebugLog.d(TAG, "city name = " + cityName);
-                        intent.putExtra("select_city_name", cityName);
+                        if (!cityName.equals(UtilityClass.getCityName(mContext,UtilityClass.DEFAULT_CITY_TYPE))) {
+                            DebugLog.d(TAG, "select city name = " + cityName);
+                            intent.putExtra("select_city_name", cityName);
 
-                        //将选择的城市名字保存
-                        UtilityClass.setCityName(mContext,UtilityClass.CHOOSE_CITY_TYPE,cityName);
+                            //将选择的城市名字保存
+                            UtilityClass.setCityName(mContext, UtilityClass.CHOOSE_CITY_TYPE, cityName);
 
-                        //将显示级别设置为选择类型
-                        UtilityClass.SHOW_CITY_WEATHER_INFO = UtilityClass.SHOW_CHOOSE_CITY;
+                            //将显示级别设置为选择类型
+                            UtilityClass.SHOW_CITY_WEATHER_INFO = UtilityClass.SHOW_CHOOSE_CITY;
+                        }else {
+                            DebugLog.d(TAG,"select city is default city");
+                            UtilityClass.SHOW_CITY_WEATHER_INFO = UtilityClass.SHOW_DEFAULT_CITY;
+                        }
+                        //启动WeatherShow 界面
                         startActivity(intent);
                     }
                 } else {
