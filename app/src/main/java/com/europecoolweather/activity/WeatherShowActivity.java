@@ -187,7 +187,11 @@ public class WeatherShowActivity extends AppCompatActivity {
                 weatherLayout.setVisibility(View.INVISIBLE);
                 DebugLog.d(TAG,"get weather by location");
                 if (UtilityClass.isNetWorkAvailable(mContext)) {
+                    //启动定位服务
                     startRequestLocation();
+
+                    //设置选择的方式为定位方式
+                    UtilityClass.SHOW_CITY_WEATHER_INFO = UtilityClass.SHOW_LOCATION_CITY;
                 }else{
                     UtilityClass.showToast(mContext,getString(R.string.toast_detect_internet_no_useful));
                 }
