@@ -14,7 +14,6 @@ import android.widget.Button;
 import com.europecoolweather.R;
 import com.europecoolweather.activity.AboutMeActivity;
 import com.europecoolweather.activity.CityManagerActivity;
-import com.europecoolweather.activity.ShareAppActivity;
 import com.europecoolweather.activity.WeatherShowActivity;
 import com.europecoolweather.util.DebugLog;
 import com.europecoolweather.util.UtilityClass;
@@ -31,9 +30,6 @@ public class MainFragment extends Fragment implements View.OnClickListener{
 
     //城市管理
     private Button btnCityManager;
-
-    //分享APP
-    private Button btnShareApp;
 
     //关于作者
     private Button btnAboutAuthor;
@@ -55,7 +51,6 @@ public class MainFragment extends Fragment implements View.OnClickListener{
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_main, container, false);
         btnCityManager = (Button)view.findViewById(R.id.btn_city_manager);
-        btnShareApp = (Button)view.findViewById(R.id.btn_share_app);
         btnAboutAuthor = (Button)view.findViewById(R.id.btn_about_author);
         btnShowDefaultCity = (Button)view.findViewById(R.id.btn_show_default_city);
         btnExitApp = (Button)view.findViewById(R.id.btn_exit_app);
@@ -67,8 +62,6 @@ public class MainFragment extends Fragment implements View.OnClickListener{
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         btnCityManager.setOnClickListener(this);
-        //btnChangeBg.setOnClickListener(this);
-        btnShareApp.setOnClickListener(this);
         btnAboutAuthor.setOnClickListener(this);
         btnShowDefaultCity.setOnClickListener(this);
         btnExitApp.setOnClickListener(this);
@@ -86,15 +79,6 @@ public class MainFragment extends Fragment implements View.OnClickListener{
                 //启动activity增加城市
                 Intent addCityIntent =  new Intent(getActivity(), CityManagerActivity.class);
                 startActivity(addCityIntent);
-                break;
-            case R.id.btn_share_app:
-                DebugLog.d(TAG,"click share app button");
-
-                //关闭drawer
-                closeLeftDrawerLayout();
-
-                //分享APP
-                ShareAppActivity.shareApp(getActivity());
                 break;
             case R.id.btn_about_author:
                 DebugLog.d(TAG,"click exit about me button");
