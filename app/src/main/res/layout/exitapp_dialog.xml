@@ -3,17 +3,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/exitapp_text_bg" >
+    android:background="@drawable/exitapp_text_bg">
 
     <TextView
         android:id="@+id/exitapp_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:textColor="#fff"
-        android:textSize="18sp"
+        android:background="@drawable/exitapp_text_bg"
         android:padding="10dp"
-        android:background="@drawable/exitapp_text_bg" />
+        android:textColor="#fff"
+        android:textSize="18sp" />
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -22,8 +22,8 @@
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/exitapp_text"
         android:layout_marginTop="30dp"
-        android:padding="5dp"
-        android:background="#499BF7" >
+        android:background="#499BF7"
+        android:padding="5dp">
 
         <Button
             android:id="@+id/leftbutton"

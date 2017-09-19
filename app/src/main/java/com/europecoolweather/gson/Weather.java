@@ -6,9 +6,9 @@ import java.util.List;
 
 /**
  * Created by guangkai on 2017/8/2.
- *
+ * <p>
  * 需求：
- *      Gson解析Weather信息
+ * Gson解析Weather信息
  */
 
 public class Weather {

@@ -79,7 +79,7 @@ public class CityManagerAdapter extends BaseAdapter {
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         if (convertView == null) {
-            convertView = mInflater.inflate(R.layout.item_gridview_citymanager,parent, false);
+            convertView = mInflater.inflate(R.layout.item_gridview_citymanager, parent, false);
         }
         grid_city = (TextView) convertView.findViewById(R.id.grid_city);
         grid_temp = (TextView) convertView.findViewById(R.id.grid_temp);
@@ -93,9 +93,9 @@ public class CityManagerAdapter extends BaseAdapter {
 
             @Override
             public void onClick(View view) {
-                DebugLog.d(TAG,"Create the dialog to confirm delete city");
+                DebugLog.d(TAG, "Create the dialog to confirm delete city");
                 final String cityName = mCityManagerEntityList.get(position).getCityName();
-                AlertDialog.Builder alertDialog = new AlertDialog.Builder(mContext,R.style.ThemeAppCompatLightDialogAlertSelf);
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(mContext, R.style.ThemeAppCompatLightDialogAlertSelf);
                 alertDialog.setIcon(R.drawable.cool_weather_icon);
                 alertDialog.setTitle(R.string.dialog_delete_city_title);
                 alertDialog.setMessage(R.string.dialog_confirm_delete_city_content + cityName);
@@ -103,39 +103,39 @@ public class CityManagerAdapter extends BaseAdapter {
                 alertDialog.setPositiveButton(R.string.dialog_positive_button_exit_app, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        DebugLog.d(TAG,"confirm delete city " + cityName);
-                        SQLiteCityManager sqlite = new SQLiteCityManager(mContext,UtilityClass.YOU_COOL_DATABASE, null, 1);
+                        DebugLog.d(TAG, "confirm delete city " + cityName);
+                        SQLiteCityManager sqlite = new SQLiteCityManager(mContext, UtilityClass.YOU_COOL_DATABASE, null, 1);
                         SQLiteDatabase db = sqlite.getWritableDatabase();
 
                         //删除数据库中所存在的数据记录
-                        int index = db.delete(UtilityClass.YOU_COOL_WEATHER, "city_name = ?", new String []{cityName});
-                        if(index == 0){
-                            UtilityClass.showToast(mContext,mContext.getString(R.string.dialog_delete_city_failed));
+                        int index = db.delete(UtilityClass.YOU_COOL_WEATHER, "city_name = ?", new String[]{cityName});
+                        if (index == 0) {
+                            UtilityClass.showToast(mContext, mContext.getString(R.string.dialog_delete_city_failed));
                         }
 
-                        String mDefaultCityName = UtilityClass.getCityName(mContext,UtilityClass.DEFAULT_CITY_TYPE);
-                        String mChooseCityName = UtilityClass.getCityName(mContext,UtilityClass.CHOOSE_CITY_TYPE);
+                        String mDefaultCityName = UtilityClass.getCityName(mContext, UtilityClass.DEFAULT_CITY_TYPE);
+                        String mChooseCityName = UtilityClass.getCityName(mContext, UtilityClass.CHOOSE_CITY_TYPE);
 
                         if (mDefaultCityName != null) {
                             //如果删除的数据是默认城市的数据，则将com.europecoolweather_preferences中默认的城市数据清除
                             DebugLog.d(TAG, "default weather city name = " + mDefaultCityName + ", delete city name = " + cityName);
                             if (mDefaultCityName.equals(cityName)) {
-                                UtilityClass.removeCityName(mContext,UtilityClass.DEFAULT_CITY_TYPE);
+                                UtilityClass.removeCityName(mContext, UtilityClass.DEFAULT_CITY_TYPE);
                                 UtilityClass.SHOW_CITY_WEATHER_INFO = UtilityClass.SHOW_CHOOSE_CITY;
                             }
                         }
 
-                        if (mChooseCityName != null){
+                        if (mChooseCityName != null) {
                             //如果删除的数据是之前选择的城市的数据，则将com.europecoolweather_preferences中选择的城市数据清除
                             DebugLog.d(TAG, "choose weather city name = " + mChooseCityName + ", delete city name = " + cityName);
                             if (mChooseCityName.equals(cityName)) {
-                                UtilityClass.removeCityName(mContext,UtilityClass.CHOOSE_CITY_TYPE);
+                                UtilityClass.removeCityName(mContext, UtilityClass.CHOOSE_CITY_TYPE);
                                 UtilityClass.SHOW_CITY_WEATHER_INFO = UtilityClass.SHOW_DEFAULT_CITY;
                             }
                         }
 
-                        for(int i = 0; i < cityManager.size(); i++){
-                            if(cityName.equals(cityManager.get(i).getCityName())){
+                        for (int i = 0; i < cityManager.size(); i++) {
+                            if (cityName.equals(cityManager.get(i).getCityName())) {
                                 cityManager.remove(i);
                             }
                         }
@@ -147,7 +147,7 @@ public class CityManagerAdapter extends BaseAdapter {
                 alertDialog.setNegativeButton(R.string.dialog_negative_button_exit_app, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        DebugLog.d(TAG,"cancel delete city = " + cityName);
+                        DebugLog.d(TAG, "cancel delete city = " + cityName);
                     }
                 });
 
@@ -165,24 +165,24 @@ public class CityManagerAdapter extends BaseAdapter {
                 mClickViewButton = (Button) v.findViewById(R.id.grid_set_normal);
                 String btnNormalStatus = mClickViewButton.getText().toString();
                 String cityName = mCityManagerEntityList.get(position).getCityName();
-                DebugLog.d(TAG,"status is " + btnNormalStatus + ", cityName = " + cityName);
+                DebugLog.d(TAG, "status is " + btnNormalStatus + ", cityName = " + cityName);
 
-                if (btnNormalStatus.equals(mContext.getString(R.string.btn_set_normal))){
+                if (btnNormalStatus.equals(mContext.getString(R.string.btn_set_normal))) {
 
-                    DebugLog.d(TAG,"change button text is normal and save city name");
-                    UtilityClass.setCityName(mContext,UtilityClass.DEFAULT_CITY_TYPE,cityName);
+                    DebugLog.d(TAG, "change button text is normal and save city name");
+                    UtilityClass.setCityName(mContext, UtilityClass.DEFAULT_CITY_TYPE, cityName);
 
                     mClickViewButton.setText(R.string.btn_normal);
-                    UtilityClass.showToast(mContext,mContext.getString(R.string.toast_set_default_success));
-                }else if (btnNormalStatus.equals(mContext.getString(R.string.btn_normal))){
+                    UtilityClass.showToast(mContext, mContext.getString(R.string.toast_set_default_success));
+                } else if (btnNormalStatus.equals(mContext.getString(R.string.btn_normal))) {
 
-                    DebugLog.d(TAG,"remove weather key and change button text is setNormal");
-                    UtilityClass.removeCityName(mContext,UtilityClass.DEFAULT_CITY_TYPE);
+                    DebugLog.d(TAG, "remove weather key and change button text is setNormal");
+                    UtilityClass.removeCityName(mContext, UtilityClass.DEFAULT_CITY_TYPE);
 
                     mClickViewButton.setText(R.string.btn_set_normal);
-                    UtilityClass.showToast(mContext,mContext.getString(R.string.toast_cancel_set_default_success));
-                }else {
-                    UtilityClass.showToast(mContext,mContext.getString(R.string.toast_unrecognized_state));
+                    UtilityClass.showToast(mContext, mContext.getString(R.string.toast_cancel_set_default_success));
+                } else {
+                    UtilityClass.showToast(mContext, mContext.getString(R.string.toast_unrecognized_state));
                 }
 
                 //更新界面
@@ -212,11 +212,11 @@ public class CityManagerAdapter extends BaseAdapter {
             grid_set_normal.setText(R.string.btn_set_normal);
 
 
-            String mDefaultCityName = UtilityClass.getCityName(mContext,UtilityClass.DEFAULT_CITY_TYPE);
+            String mDefaultCityName = UtilityClass.getCityName(mContext, UtilityClass.DEFAULT_CITY_TYPE);
 
             //将默认的城市的Button显示为“默认”
-            if (mDefaultCityName != null){
-                DebugLog.d(TAG,"default city name = " + mDefaultCityName +", get city name = " + cityManager.get(position).getCityName());
+            if (mDefaultCityName != null) {
+                DebugLog.d(TAG, "default city name = " + mDefaultCityName + ", get city name = " + cityManager.get(position).getCityName());
                 if (mDefaultCityName.equals(cityManager.get(position).getCityName())) {
                     DebugLog.d(TAG, "button text show default");
                     grid_set_normal.setText(R.string.btn_normal);

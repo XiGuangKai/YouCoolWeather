@@ -8,18 +8,19 @@ import com.europecoolweather.util.UtilityClass;
 
 /**
  * 创建数据库YouCoolDatabase，并且在数据库YouCoolDatabase中增加表YouCoolWeather
+ *
  * @author GuangKai
  * @version 版本1.0
  */
 
 public class SQLiteCityManager extends SQLiteOpenHelper {
-    public SQLiteCityManager(Context context, String name,SQLiteDatabase.CursorFactory factory, int version) {
+    public SQLiteCityManager(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String sql = "create table "+ UtilityClass.YOU_COOL_WEATHER +"(_id integer primary key autoincrement, city_name varchar(20), "
+        String sql = "create table " + UtilityClass.YOU_COOL_WEATHER + "(_id integer primary key autoincrement, city_name varchar(20), "
                 + "image_url varchar(20), weather varchar(20), temperature varchar(20), weather_description varchar(1000));";
         db.execSQL(sql);
     }

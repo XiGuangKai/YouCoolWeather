@@ -21,7 +21,7 @@ public class AutoUpdateWeatherService extends Service {
 
     private final static String TAG = "AutoUpdateWeatherService";
 
-    private static final int AUTO_TIME_INTERVAL = 60*1000;
+    private static final int AUTO_TIME_INTERVAL = 60 * 1000;
 
     public AutoUpdateWeatherService() {
     }
@@ -32,7 +32,7 @@ public class AutoUpdateWeatherService extends Service {
     }
 
     @Override
-    public int onStartCommand(Intent intent,int flags,int startId){
+    public int onStartCommand(Intent intent, int flags, int startId) {
         //更新天气信息
         updateWeather();
 
@@ -40,12 +40,12 @@ public class AutoUpdateWeatherService extends Service {
         updateBingPic();
 
         //启动定时器，每隔一分钟刷新一次天气数据
-        UtilityClass.startAlarm(this,AUTO_TIME_INTERVAL,UtilityClass.SERVICE_ALARM);
+        UtilityClass.startAlarm(this, AUTO_TIME_INTERVAL, UtilityClass.SERVICE_ALARM);
         return super.onStartCommand(intent, flags, startId);
     }
 
     @Override
-    public void onDestroy(){
+    public void onDestroy() {
         super.onDestroy();
 
         //停止计时器
@@ -55,14 +55,14 @@ public class AutoUpdateWeatherService extends Service {
     /**
      * 更新天气信息。
      */
-    private void updateWeather(){
+    private void updateWeather() {
 
         //城市的天气描述信息
         String mWeatherDescription = null;
 
         //获取存储的默认的城市名字和选择的城市名字
-        String mDefaultCityName = UtilityClass.getCityName(getBaseContext(),UtilityClass.DEFAULT_CITY_TYPE);
-        String mChooseCityName = UtilityClass.getCityName(getBaseContext(),UtilityClass.CHOOSE_CITY_TYPE);
+        String mDefaultCityName = UtilityClass.getCityName(getBaseContext(), UtilityClass.DEFAULT_CITY_TYPE);
+        String mChooseCityName = UtilityClass.getCityName(getBaseContext(), UtilityClass.CHOOSE_CITY_TYPE);
 
         {//根据不同状态获取不同的城市列表
             if (UtilityClass.SHOW_DEFAULT_CITY.equals(UtilityClass.SHOW_CITY_WEATHER_INFO)) {
@@ -90,10 +90,10 @@ public class AutoUpdateWeatherService extends Service {
 
             // 有缓存时直接解析天气数据
             Weather weather = UtilityClass.handleWeatherResponse(mWeatherDescription);
-            if (weather != null){
+            if (weather != null) {
                 String cityName = weather.basic.cityName;
-                DebugLog.d(TAG,"auto update " + cityName + " weather info");
-                String weatherUrl = "https://free-api.heweather.com/v5/weather?city="+cityName+"&key=6616624b9a104d3aa3afe5dfef16783c";
+                DebugLog.d(TAG, "auto update " + cityName + " weather info");
+                String weatherUrl = "https://free-api.heweather.com/v5/weather?city=" + cityName + "&key=6616624b9a104d3aa3afe5dfef16783c";
 
                 HttpUtil.sendOkHttpRequest(weatherUrl, new Callback() {
                     @Override
@@ -105,18 +105,18 @@ public class AutoUpdateWeatherService extends Service {
                         if (weather != null && "ok".equals(weather.status)) {
 
                             //将数据更新到数据库
-                            UtilityClass.insertOrUpdateDatabase(getBaseContext(),weather,UtilityClass.setWeatherPictureToString(getBaseContext(),weather.now.more.info),responseText);
+                            UtilityClass.insertOrUpdateDatabase(getBaseContext(), weather, UtilityClass.setWeatherPictureToString(getBaseContext(), weather.now.more.info), responseText);
 
                             //发送广播更新天气信息
                             Intent intent = new Intent("com.europecoolweather.updateWeatherInfo.BROADCAST");
                             sendBroadcast(intent);
-                            DebugLog.d(TAG,"send broadcast to update weather info");
+                            DebugLog.d(TAG, "send broadcast to update weather info");
                         }
                     }
 
                     @Override
                     public void onFailure(Call call, IOException e) {
-                        DebugLog.d(TAG,"weather update error");
+                        DebugLog.d(TAG, "weather update error");
                         e.printStackTrace();
                     }
                 });
@@ -128,7 +128,7 @@ public class AutoUpdateWeatherService extends Service {
      * 更新必应每日一图
      */
     private void updateBingPic() {
-        DebugLog.d(TAG,"updateBingPic() enter");
+        DebugLog.d(TAG, "updateBingPic() enter");
 
         String requestBingPic = "http://guolin.tech/api/bing_pic";
         HttpUtil.sendOkHttpRequest(requestBingPic, new Callback() {
@@ -139,12 +139,12 @@ public class AutoUpdateWeatherService extends Service {
                 SharedPreferences.Editor editorStoredData = mStoredData.edit();
                 editorStoredData.putString("backgroundPicture", bingPic);
                 editorStoredData.apply();
-                DebugLog.d(TAG,"update the background picture");
+                DebugLog.d(TAG, "update the background picture");
             }
 
             @Override
             public void onFailure(Call call, IOException e) {
-                DebugLog.e(TAG,"get picture from internet failed");
+                DebugLog.e(TAG, "get picture from internet failed");
                 e.printStackTrace();
             }
         });

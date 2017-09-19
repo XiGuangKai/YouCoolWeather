@@ -3,24 +3,24 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/left_layout_bg" >
+    android:background="@drawable/left_layout_bg">
 
     <LinearLayout
         android:id="@+id/linearlayout_title"
-        android:paddingTop="15dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal" >
+        android:orientation="horizontal"
+        android:paddingTop="15dp">
 
         <Button
             android:id="@+id/btn_back"
             android:layout_width="25dp"
             android:layout_height="25dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginStart="10dp"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
             android:background="@drawable/back_bg" />
 
         <TextView
@@ -29,17 +29,17 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="城市管理"
-            android:textSize="20sp"
-            android:textColor="#fff" />
+            android:textColor="#fff"
+            android:textSize="20sp" />
 
         <Button
             android:id="@+id/btn_delete_all_city"
-            android:background="@drawable/delete_all_city_bg"
             android:layout_width="25dp"
             android:layout_height="25dp"
-            android:layout_marginRight="10dp"
             android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"/>
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/delete_all_city_bg" />
 
     </LinearLayout>
 
@@ -47,16 +47,16 @@
         android:id="@+id/gv_city_manager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@+id/linearlayout_title"
+        android:focusable="true"
+        android:gravity="center"
+        android:horizontalSpacing="10dp"
+        android:listSelector="@android:color/transparent"
+        android:numColumns="3"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
         android:paddingTop="15dp"
-        android:horizontalSpacing="10dp"
-        android:verticalSpacing="5dp"
-        android:numColumns="3"
-        android:listSelector="@android:color/transparent"
-        android:focusable="true"
-        android:gravity="center"
         android:scrollbars="none"
-        android:layout_below="@+id/linearlayout_title"/>
+        android:verticalSpacing="5dp" />
 
 </RelativeLayout>

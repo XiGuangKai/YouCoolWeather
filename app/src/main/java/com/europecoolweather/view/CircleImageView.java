@@ -140,7 +140,7 @@ public class CircleImageView extends ImageView {
         return mBorderColor;
     }
 
-    public void setBorderColor( int borderColor) {
+    public void setBorderColor(int borderColor) {
         if (borderColor == mBorderColor) {
             return;
         }
@@ -150,7 +150,7 @@ public class CircleImageView extends ImageView {
         invalidate();
     }
 
-    public void setBorderColorResource( int borderColorRes) {
+    public void setBorderColorResource(int borderColorRes) {
         setBorderColor(getContext().getResources().getColor(borderColorRes));
     }
 
@@ -158,7 +158,7 @@ public class CircleImageView extends ImageView {
         return mFillColor;
     }
 
-    public void setFillColor( int fillColor) {
+    public void setFillColor(int fillColor) {
         if (fillColor == mFillColor) {
             return;
         }
@@ -168,7 +168,7 @@ public class CircleImageView extends ImageView {
         invalidate();
     }
 
-    public void setFillColorResource( int fillColorRes) {
+    public void setFillColorResource(int fillColorRes) {
         setFillColor(getContext().getResources().getColor(fillColorRes));
     }
 
@@ -213,7 +213,7 @@ public class CircleImageView extends ImageView {
     }
 
     @Override
-    public void setImageResource( int resId) {
+    public void setImageResource(int resId) {
         super.setImageResource(resId);
         mBitmap = getBitmapFromDrawable(getDrawable());
         setup();

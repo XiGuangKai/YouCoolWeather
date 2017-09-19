@@ -11,7 +11,7 @@
         android:layout_gravity="center_vertical"
         android:layout_weight="1"
         android:gravity="center"
-        android:textColor="#fff"/>
+        android:textColor="#fff" />
 
     <RelativeLayout
         android:layout_width="wrap_content"
@@ -20,29 +20,29 @@
         android:layout_weight="1">
 
         <ImageView
+            android:id="@+id/iv_picture"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:id="@+id/iv_picture"
             android:layout_toLeftOf="@+id/empty"
-            android:layout_toStartOf="@+id/empty"/>
+            android:layout_toStartOf="@+id/empty" />
 
         <TextView
+            android:id="@+id/empty"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:layout_centerVertical="true"
-            android:text="   "
-            android:id="@+id/empty"/>
+            android:text="   " />
 
         <TextView
             android:id="@+id/info_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_toEndOf="@+id/empty"
             android:layout_toRightOf="@+id/empty"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="#fff"/>
+            android:textColor="#fff" />
     </RelativeLayout>
 
     <TextView
@@ -52,6 +52,6 @@
         android:layout_gravity="center"
         android:layout_weight="1"
         android:gravity="center"
-        android:textColor="#fff"/>
+        android:textColor="#fff" />
 
 </LinearLayout>

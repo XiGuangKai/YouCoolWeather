@@ -19,12 +19,11 @@ public class AboutMeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about_me);
         initView();
-        DebugLog.d(TAG,"onCreate() complete");
+        DebugLog.d(TAG, "onCreate() complete");
     }
 
-    private void initView()
-    {
-        Button mButton = (Button)findViewById(R.id.btn_search_author_blog);
+    private void initView() {
+        Button mButton = (Button) findViewById(R.id.btn_search_author_blog);
 
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -34,6 +33,6 @@ public class AboutMeActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        DebugLog.d(TAG,"initView() complete");
+        DebugLog.d(TAG, "initView() complete");
     }
 }

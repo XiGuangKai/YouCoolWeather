@@ -4,6 +4,7 @@ import com.google.gson.annotations.SerializedName;
 
 /**
  * gson方式解析Now信息
+ *
  * @author GuangKai
  * @version 版本1.0
  */
@@ -25,7 +26,7 @@ public class Now {
 
     }
 
-    public class Wind{
+    public class Wind {
         @SerializedName("dir")
         public String WindDir;
 

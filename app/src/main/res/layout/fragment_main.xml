@@ -4,41 +4,44 @@
     android:layout_width="300dp"
     android:layout_height="match_parent"
     android:layout_gravity="start"
-    android:background="#EEffffff" >
+    android:background="#EEffffff">
 
     <LinearLayout
         android:id="@+id/linearLayout1"
-        android:paddingTop="30dp"
         android:layout_width="match_parent"
         android:layout_height="200dp"
+        android:background="@drawable/left_layout_bg"
         android:orientation="vertical"
-        android:background="@drawable/left_layout_bg">
+        android:paddingTop="30dp">
+
         <ImageView
             android:id="@+id/text1"
             android:layout_width="70dp"
             android:layout_height="70dp"
+            android:layout_gravity="center_horizontal"
             android:layout_marginTop="20dp"
-            android:background="@drawable/cool_weather_icon"
-            android:layout_gravity="center_horizontal"/>
+            android:background="@drawable/cool_weather_icon" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="7dp"
-            android:textSize="18sp"
+            android:text="@string/app_name"
             android:textColor="#000"
-            android:text="@string/app_name"/>
+            android:textSize="18sp" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="7dp"
-            android:textSize="18sp"
+            android:text="@string/tv_simple_style"
             android:textColor="#000"
-            android:text="@string/tv_simple_style"/>
+            android:textSize="18sp" />
 
     </LinearLayout>
+
     <Button
         android:id="@+id/btn_city_manager"
         android:layout_width="match_parent"

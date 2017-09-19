@@ -36,6 +36,7 @@ import java.io.ByteArrayOutputStream;
 
 /**
  * 公共方法类
+ *
  * @author GuangKai
  * @version 版本1.0
  */
@@ -132,10 +133,11 @@ public class UtilityClass {
 
     /**
      * 保存运行时权限申请的状态
+     *
      * @param context 上下文信息
-     * @param status 要保存的状态
+     * @param status  要保存的状态
      */
-    public static void setRequestRunningPermissionStatus(Context context,boolean status) {
+    public static void setRequestRunningPermissionStatus(Context context, boolean status) {
         //将权限状态标志保存
         SharedPreferences mStoredData = context.getSharedPreferences("stored_data", Context.MODE_PRIVATE);
         SharedPreferences.Editor editorStoredData = mStoredData.edit();
@@ -145,35 +147,37 @@ public class UtilityClass {
 
     /**
      * 获取运行时权限的状态
+     *
      * @param context 上下文信息
      * @return 返回运行时权限的状态，true or false
      */
-    public static boolean getRequestRunningPermissionStatus(Context context){
+    public static boolean getRequestRunningPermissionStatus(Context context) {
 
         SharedPreferences mStoredData = context.getSharedPreferences("stored_data", Context.MODE_PRIVATE);
 
         boolean isRequestPermissionOK = mStoredData.getBoolean("isRequestPermissionOK", false);
 
-        DebugLog.d(TAG,"running permission status is " + isRequestPermissionOK);
+        DebugLog.d(TAG, "running permission status is " + isRequestPermissionOK);
         return isRequestPermissionOK;
     }
 
     /**
      * 获取城市名字
+     *
      * @param context 上下文信息
-     * @param type 获取选择的城市或者获取默认的城市的类型
+     * @param type    获取选择的城市或者获取默认的城市的类型
      * @return 返回城市名字;如果没有找到或者参数类型错误，则返回null;
      */
-    public static String getCityName(Context context,String type){
-        if (type.isEmpty() || ((!DEFAULT_CITY_TYPE.equals(type)) && (!CHOOSE_CITY_TYPE.equals(type)))){
-            DebugLog.e(TAG,"get city name parameter error");
+    public static String getCityName(Context context, String type) {
+        if (type.isEmpty() || ((!DEFAULT_CITY_TYPE.equals(type)) && (!CHOOSE_CITY_TYPE.equals(type)))) {
+            DebugLog.e(TAG, "get city name parameter error");
             return null;
         }
-        DebugLog.d(TAG,"get city name");
+        DebugLog.d(TAG, "get city name");
         SharedPreferences mDefaultSharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         if (DEFAULT_CITY_TYPE.equals(type)) {
             return mDefaultSharedPreferences.getString(DEFAULT_CITY_TYPE, null);
-        }else if (CHOOSE_CITY_TYPE.equals(type)){
+        } else if (CHOOSE_CITY_TYPE.equals(type)) {
             return mDefaultSharedPreferences.getString(CHOOSE_CITY_TYPE, null);
         }
         return null;
@@ -181,22 +185,23 @@ public class UtilityClass {
 
     /**
      * 保存城市的名字
-     * @param context 上下文信息
-     * @param type 获取选择的城市或者获取默认的城市的类型
+     *
+     * @param context  上下文信息
+     * @param type     获取选择的城市或者获取默认的城市的类型
      * @param cityName 要保存的城市名字
      */
-    public static void setCityName(Context context,String type,final String cityName){
-        if (type.isEmpty() || ((!DEFAULT_CITY_TYPE.equals(type)) && (!CHOOSE_CITY_TYPE.equals(type)))){
-            DebugLog.e(TAG,"set city name parameter error");
+    public static void setCityName(Context context, String type, final String cityName) {
+        if (type.isEmpty() || ((!DEFAULT_CITY_TYPE.equals(type)) && (!CHOOSE_CITY_TYPE.equals(type)))) {
+            DebugLog.e(TAG, "set city name parameter error");
             return;
         }
 
-        DebugLog.d(TAG,"set default city name = " + cityName);
+        DebugLog.d(TAG, "set default city name = " + cityName);
         SharedPreferences mDefaultSharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         SharedPreferences.Editor mEditorDefaultSharedPreferences = mDefaultSharedPreferences.edit();
         if (DEFAULT_CITY_TYPE.equals(type)) {
             mEditorDefaultSharedPreferences.putString(DEFAULT_CITY_TYPE, cityName);
-        }else if (CHOOSE_CITY_TYPE.equals(type)){
+        } else if (CHOOSE_CITY_TYPE.equals(type)) {
             mEditorDefaultSharedPreferences.putString(CHOOSE_CITY_TYPE, cityName);
         }
         mEditorDefaultSharedPreferences.apply();
@@ -204,18 +209,19 @@ public class UtilityClass {
 
     /**
      * 删除城市的Key
+     *
      * @param context 上下文信息
      */
-    public static void removeCityName(Context context,String type){
-        if (type.isEmpty() || ((!DEFAULT_CITY_TYPE.equals(type)) && (!CHOOSE_CITY_TYPE.equals(type)))){
-            DebugLog.e(TAG,"set city name parameter error");
+    public static void removeCityName(Context context, String type) {
+        if (type.isEmpty() || ((!DEFAULT_CITY_TYPE.equals(type)) && (!CHOOSE_CITY_TYPE.equals(type)))) {
+            DebugLog.e(TAG, "set city name parameter error");
             return;
         }
-        DebugLog.d(TAG,"remove city name");
+        DebugLog.d(TAG, "remove city name");
         SharedPreferences.Editor editorDefaultSharedPreferences = PreferenceManager.getDefaultSharedPreferences(context).edit();
         if (DEFAULT_CITY_TYPE.equals(type)) {
             editorDefaultSharedPreferences.remove(DEFAULT_CITY_TYPE);
-        }else if (CHOOSE_CITY_TYPE.equals(type)){
+        } else if (CHOOSE_CITY_TYPE.equals(type)) {
             editorDefaultSharedPreferences.remove(CHOOSE_CITY_TYPE);
         }
         editorDefaultSharedPreferences.apply();
@@ -223,12 +229,13 @@ public class UtilityClass {
 
     /**
      * 更新数据库
-     * @param context 上下文信息
-     * @param weather 要保存的天气信息对象weather
-     * @param weatherPicture 把图片被String化的字符串
+     *
+     * @param context             上下文信息
+     * @param weather             要保存的天气信息对象weather
+     * @param weatherPicture      把图片被String化的字符串
      * @param responseWeatherInfo 获取到的所有的天气信息，其实也可以用weather替代
-     * */
-    public static void insertOrUpdateDatabase(Context context,Weather weather,String weatherPicture,String responseWeatherInfo){
+     */
+    public static void insertOrUpdateDatabase(Context context, Weather weather, String weatherPicture, String responseWeatherInfo) {
         if (context != null && weather != null && weatherPicture != null) {
             // 创建SQLite对象并不会创建数据库
             SQLiteCityManager sqlite = new SQLiteCityManager(context, YOU_COOL_DATABASE, null, DATABASE_VERSION);
@@ -267,38 +274,40 @@ public class UtilityClass {
 
     /**
      * 查询当前数据库中是否存在当前要查询的天气数据
-     * @param context 上下文信息
+     *
+     * @param context  上下文信息
      * @param cityName 要查询的城市名字
      * @return 存在返回true，否则返回false
      */
-    public static String queryDatabaseWhetherCityExists(Context context,String cityName) {
-        SQLiteCityManager SQLite = new SQLiteCityManager(context,UtilityClass.YOU_COOL_DATABASE, null, UtilityClass.DATABASE_VERSION);
+    public static String queryDatabaseWhetherCityExists(Context context, String cityName) {
+        SQLiteCityManager SQLite = new SQLiteCityManager(context, UtilityClass.YOU_COOL_DATABASE, null, UtilityClass.DATABASE_VERSION);
         SQLiteDatabase db = SQLite.getWritableDatabase();
         Cursor cursor = db.query(UtilityClass.YOU_COOL_WEATHER, null, null, null, null, null, null);
 
         while (cursor.moveToNext()) {
-            if (cursor.getString(cursor.getColumnIndex("city_name")).equals(cityName)){
-                DebugLog.d(TAG,"return city presence weather_description");
+            if (cursor.getString(cursor.getColumnIndex("city_name")).equals(cityName)) {
+                DebugLog.d(TAG, "return city presence weather_description");
                 return cursor.getString(cursor.getColumnIndex("weather_description"));
             }
         }
         cursor.close();
-        DebugLog.e(TAG,"city not presence");
+        DebugLog.e(TAG, "city not presence");
         return null;
     }
 
     /**
      * 查询数据库中第一条记录
+     *
      * @param context 上下文信息
      * @return CityManagerEntity，查询到的数据存储到CityManagerEntity对象中,如果没有则返回null
      */
     public static String queryDatabaseFirstId(Context context) {
-        SQLiteCityManager SQLite = new SQLiteCityManager(context,UtilityClass.YOU_COOL_DATABASE, null, UtilityClass.DATABASE_VERSION);
+        SQLiteCityManager SQLite = new SQLiteCityManager(context, UtilityClass.YOU_COOL_DATABASE, null, UtilityClass.DATABASE_VERSION);
         SQLiteDatabase db = SQLite.getWritableDatabase();
         Cursor cursor = db.query(UtilityClass.YOU_COOL_WEATHER, null, null, null, null, null, null);
 
         if (cursor.moveToFirst()) {
-            DebugLog.d(TAG,"first id = " + cursor.getString(cursor.getColumnIndex("_id")));
+            DebugLog.d(TAG, "first id = " + cursor.getString(cursor.getColumnIndex("_id")));
             return cursor.getString(cursor.getColumnIndex("weather_description"));
         }
 
@@ -308,12 +317,13 @@ public class UtilityClass {
 
     /**
      * 删除数据库中的表
-     * @param context 上下文信息
+     *
+     * @param context   上下文信息
      * @param tableName 要删除的数据库中表的名字
      */
-    public static void deleteDatabase(Context context,String tableName){
+    public static void deleteDatabase(Context context, String tableName) {
         // 创建SQLite对象并不会创建数据库
-        SQLiteCityManager sqlite = new SQLiteCityManager(context,YOU_COOL_DATABASE, null, DATABASE_VERSION);
+        SQLiteCityManager sqlite = new SQLiteCityManager(context, YOU_COOL_DATABASE, null, DATABASE_VERSION);
         // 读写数据库
         SQLiteDatabase db = sqlite.getWritableDatabase();
 
@@ -324,17 +334,18 @@ public class UtilityClass {
     }
 
     /**
-    * 解析服务器返回的省级数据
-    * @param response 从网络获取的省级数据
-    * @return 成功返回true，失败返回false
-    * */
-    public static boolean handleProvinceResponse(String response){
-        if (!TextUtils.isEmpty(response)){
-            try{
+     * 解析服务器返回的省级数据
+     *
+     * @param response 从网络获取的省级数据
+     * @return 成功返回true，失败返回false
+     */
+    public static boolean handleProvinceResponse(String response) {
+        if (!TextUtils.isEmpty(response)) {
+            try {
                 JSONArray allProvinces = new JSONArray(response);
-                DebugLog.d(TAG,"allProvinces.length() = " + allProvinces.length());
+                DebugLog.d(TAG, "allProvinces.length() = " + allProvinces.length());
 
-                for (int i = 0;i<allProvinces.length();i++){
+                for (int i = 0; i < allProvinces.length(); i++) {
                     JSONObject provinceObject = allProvinces.getJSONObject(i);
 
                     Province province = new Province();
@@ -343,28 +354,29 @@ public class UtilityClass {
                     province.save();
                 }
                 return true;
-            }catch (JSONException e){
-                DebugLog.e(TAG,"handle Province Response JSONException");
+            } catch (JSONException e) {
+                DebugLog.e(TAG, "handle Province Response JSONException");
                 e.printStackTrace();
             }
         }
-        DebugLog.e(TAG,"handle Province Response return false");
+        DebugLog.e(TAG, "handle Province Response return false");
         return false;
     }
 
     /**
-    * 解析服务器返回的市级数据
-    * @param response 从网络获取的市级数据
-    * @param provinceId 省的ID
-    * @return 成功返回true，失败返回false
-    * */
-    public static boolean handleCityResponse(String response,int provinceId){
-        if (!TextUtils.isEmpty(response)){
-            try{
-                DebugLog.d(TAG,"handle Cities Response enter");
+     * 解析服务器返回的市级数据
+     *
+     * @param response   从网络获取的市级数据
+     * @param provinceId 省的ID
+     * @return 成功返回true，失败返回false
+     */
+    public static boolean handleCityResponse(String response, int provinceId) {
+        if (!TextUtils.isEmpty(response)) {
+            try {
+                DebugLog.d(TAG, "handle Cities Response enter");
                 JSONArray allCities = new JSONArray(response);
 
-                for (int i = 0;i<allCities.length();i++){
+                for (int i = 0; i < allCities.length(); i++) {
                     JSONObject cityObject = allCities.getJSONObject(i);
                     City city = new City();
                     city.setCityName(cityObject.getString("name"));
@@ -373,28 +385,29 @@ public class UtilityClass {
                     city.save();
                 }
                 return true;
-            }catch (JSONException e){
-                DebugLog.e(TAG,"handle Cities Response JSONException");
+            } catch (JSONException e) {
+                DebugLog.e(TAG, "handle Cities Response JSONException");
                 e.printStackTrace();
             }
         }
-        DebugLog.e(TAG,"handle Cities Response return false");
+        DebugLog.e(TAG, "handle Cities Response return false");
         return false;
     }
 
     /**
-    * 解析服务器返回的县级数据
-    * @param response 从网络获取的县级数据
-    * @param cityId 市的ID
-    * @return 成功返回true，失败返回false
-    * */
-    public static boolean handleCountyResponse(String response,int cityId){
-        if (!TextUtils.isEmpty(response)){
-            try{
-                DebugLog.d(TAG,"handle County Response enter");
+     * 解析服务器返回的县级数据
+     *
+     * @param response 从网络获取的县级数据
+     * @param cityId   市的ID
+     * @return 成功返回true，失败返回false
+     */
+    public static boolean handleCountyResponse(String response, int cityId) {
+        if (!TextUtils.isEmpty(response)) {
+            try {
+                DebugLog.d(TAG, "handle County Response enter");
                 JSONArray allCounties = new JSONArray(response);
 
-                for (int i = 0;i<allCounties.length();i++){
+                for (int i = 0; i < allCounties.length(); i++) {
                     JSONObject countyObject = allCounties.getJSONObject(i);
                     County county = new County();
                     county.setCountyName(countyObject.getString("name"));
@@ -403,23 +416,24 @@ public class UtilityClass {
                     county.save();
                 }
                 return true;
-            }catch (JSONException e){
-                DebugLog.e(TAG,"handle County Response JSONException");
+            } catch (JSONException e) {
+                DebugLog.e(TAG, "handle County Response JSONException");
                 e.printStackTrace();
             }
         }
-        DebugLog.e(TAG,"handle County Response return false");
+        DebugLog.e(TAG, "handle County Response return false");
         return false;
     }
 
     /**
      * 将返回的JSON数据解析成Weather实体类
+     *
      * @param response 从网络API所获取的数据
      * @return Weather 返回Weather类的实体
      */
     public static Weather handleWeatherResponse(String response) {
         try {
-            DebugLog.d(TAG,"handle weather response weather info");
+            DebugLog.d(TAG, "handle weather response weather info");
             JSONObject jsonObject = new JSONObject(response);
             JSONArray jsonArray = jsonObject.getJSONArray("HeWeather5");
             String weatherContent = jsonArray.getJSONObject(0).toString();
@@ -427,50 +441,53 @@ public class UtilityClass {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        DebugLog.e(TAG,"handle weather response weather info is null");
+        DebugLog.e(TAG, "handle weather response weather info is null");
         return null;
     }
 
     /**
-    * 检测当前网络的状态确保该应用在使用时有网络可用
-    * @param context 上下文信息
-    * @return 网络可用返回true，网络不可用返回false
-    * */
-    public static boolean isNetWorkAvailable(Context context)
-    {
-        ConnectivityManager connectivityManager=(ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo networkInfo=connectivityManager.getActiveNetworkInfo();
-        DebugLog.d(TAG,"network available is " + (!(networkInfo==null||!networkInfo.isAvailable())));
-        return (!(networkInfo==null||!networkInfo.isAvailable()));
+     * 检测当前网络的状态确保该应用在使用时有网络可用
+     *
+     * @param context 上下文信息
+     * @return 网络可用返回true，网络不可用返回false
+     */
+    public static boolean isNetWorkAvailable(Context context) {
+        ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+        DebugLog.d(TAG, "network available is " + (!(networkInfo == null || !networkInfo.isAvailable())));
+        return (!(networkInfo == null || !networkInfo.isAvailable()));
     }
 
     /**
      * 显示Toast
-     * @param context 参数Context
+     *
+     * @param context  参数Context
      * @param showInfo 希望显示的字符串
      */
-    public static void showToast(Context context,String showInfo){
-        Toast mToast = Toast.makeText(context,showInfo,Toast.LENGTH_SHORT);
+    public static void showToast(Context context, String showInfo) {
+        Toast mToast = Toast.makeText(context, showInfo, Toast.LENGTH_SHORT);
         //mToast.setGravity(Gravity.CENTER,0,0);
         mToast.show();
     }
 
     /**
      * 图片转换成字符串
+     *
      * @param bitmap 需要转换成字符串的bitmap
      * @return 转换成功后的字符串
      */
-    public static String bitmapToString(Bitmap bitmap){
+    public static String bitmapToString(Bitmap bitmap) {
 
         //将Bitmap转换成字符串
-        ByteArrayOutputStream bStream=new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG,100,bStream);
-        byte[]bytes=bStream.toByteArray();
-        return Base64.encodeToString(bytes,Base64.DEFAULT);
+        ByteArrayOutputStream bStream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, bStream);
+        byte[] bytes = bStream.toByteArray();
+        return Base64.encodeToString(bytes, Base64.DEFAULT);
     }
 
     /**
      * 字符串转换成图片
+     *
      * @param string 需要转换成图片的字符串
      * @return 转换成的图片Bitmap
      */
@@ -480,7 +497,7 @@ public class UtilityClass {
         try {
             byte[] bitmapArray;
             bitmapArray = Base64.decode(string, Base64.DEFAULT);
-            bitmap = BitmapFactory.decodeByteArray(bitmapArray, 0,bitmapArray.length);
+            bitmap = BitmapFactory.decodeByteArray(bitmapArray, 0, bitmapArray.length);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -489,11 +506,12 @@ public class UtilityClass {
 
     /**
      * 显示进度对话框
-     * @param context 上下文信息
+     *
+     * @param context               上下文信息
      * @param progressDialogContent 要显示在progressDialog上的内容
      */
-    public static void showProgressDialog(Context context,String progressDialogContent) {
-        DebugLog.d(TAG,"showProgressDialog isShowProgressDialog = " + isShowProgressDialog);
+    public static void showProgressDialog(Context context, String progressDialogContent) {
+        DebugLog.d(TAG, "showProgressDialog isShowProgressDialog = " + isShowProgressDialog);
         if (isShowProgressDialog) {
             if (progressDialog == null) {
                 progressDialog = new ProgressDialog(context);
@@ -510,53 +528,54 @@ public class UtilityClass {
      */
     public static void closeProgressDialog() {
         if (progressDialog != null) {
-            DebugLog.d(TAG,"close progress dialog");
+            DebugLog.d(TAG, "close progress dialog");
             progressDialog.dismiss();
             progressDialog = null;
         }
-        DebugLog.d(TAG,"closeProgressDialog isShowProgressDialog = " + isShowProgressDialog);
+        DebugLog.d(TAG, "closeProgressDialog isShowProgressDialog = " + isShowProgressDialog);
         isShowProgressDialog = true;
     }
 
     /**
      * 启动定时器
-     * @param context 要设置定时器的对象如，this，new Xxx()
+     *
+     * @param context              要设置定时器的对象如，this，new Xxx()
      * @param update_time_interval 间隔多长时间启动一次
-     * @param alarmType 创建计时器的类型，必须是SERVICE_ALARM、ACTIVITY_ALARM、BROADCAST_ALARM中的一个
+     * @param alarmType            创建计时器的类型，必须是SERVICE_ALARM、ACTIVITY_ALARM、BROADCAST_ALARM中的一个
      */
-    public static void startAlarm(Context context,int update_time_interval,String alarmType){
+    public static void startAlarm(Context context, int update_time_interval, String alarmType) {
 
-        DebugLog.d(TAG,"update time interval = " + update_time_interval + ", alarmType = " + alarmType);
-        if (alarmType.isEmpty() || ((!SERVICE_ALARM.equals(alarmType)) && (!ACTIVITY_ALARM.equals(alarmType)) && (!BROADCAST_ALARM.equals(alarmType)))){
-            DebugLog.e(TAG,"alarm type can not distinguish");
+        DebugLog.d(TAG, "update time interval = " + update_time_interval + ", alarmType = " + alarmType);
+        if (alarmType.isEmpty() || ((!SERVICE_ALARM.equals(alarmType)) && (!ACTIVITY_ALARM.equals(alarmType)) && (!BROADCAST_ALARM.equals(alarmType)))) {
+            DebugLog.e(TAG, "alarm type can not distinguish");
             return;
         }
 
-        if (mAlarmManager == null){
+        if (mAlarmManager == null) {
             mAlarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         }
 
         long triggerAtTime = SystemClock.elapsedRealtime() + update_time_interval;
 
-        DebugLog.d(TAG,"class = " + context.getClass());
-        Intent intent = new Intent(context,context.getClass());
+        DebugLog.d(TAG, "class = " + context.getClass());
+        Intent intent = new Intent(context, context.getClass());
 
         if (SERVICE_ALARM.equals(alarmType)) {
             if (mPendingIntent == null) {
                 mPendingIntent = PendingIntent.getService(context, 0, intent, 0);
             }
-        }else if (ACTIVITY_ALARM.equals(alarmType)){
+        } else if (ACTIVITY_ALARM.equals(alarmType)) {
             if (mPendingIntent == null) {
                 mPendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
             }
-        }else if (BROADCAST_ALARM.equals(alarmType)){
+        } else if (BROADCAST_ALARM.equals(alarmType)) {
             if (mPendingIntent == null) {
                 mPendingIntent = PendingIntent.getBroadcast(context, 0, intent, 0);
             }
         }
 
         if (mAlarmManager != null && mPendingIntent != null) {
-            DebugLog.d(TAG,"start an alarm manager");
+            DebugLog.d(TAG, "start an alarm manager");
             mAlarmManager.cancel(mPendingIntent);
             mAlarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, triggerAtTime, mPendingIntent);
         }
@@ -565,9 +584,9 @@ public class UtilityClass {
     /**
      * 取消闹钟
      */
-    public static void stopAlarm(){
+    public static void stopAlarm() {
         if (mAlarmManager != null && mPendingIntent != null) {
-            DebugLog.d(TAG,"stop an alarm manager");
+            DebugLog.d(TAG, "stop an alarm manager");
             mAlarmManager.cancel(mPendingIntent);
             mAlarmManager = null;
             mPendingIntent = null;
@@ -576,18 +595,19 @@ public class UtilityClass {
 
     /**
      * 根据获取到的天气状况配置对应的天气图片
-     * @param context 上下文信息
+     *
+     * @param context     上下文信息
      * @param weatherInfo 天气信息
      * @return 将对应的图片信息转变成String形式后返回
      */
-    public static String setWeatherPictureToString(Context context, final String weatherInfo){
+    public static String setWeatherPictureToString(Context context, final String weatherInfo) {
         String weatherPicture = "";
         Resources mResources = context.getResources();
-        if (weatherInfo != null){
+        if (weatherInfo != null) {
 
-            DebugLog.d(TAG,"weather info is " + weatherInfo);
+            DebugLog.d(TAG, "weather info is " + weatherInfo);
 
-            switch (weatherInfo){
+            switch (weatherInfo) {
                 case SUNNY:
                     weatherPicture = UtilityClass.bitmapToString(BitmapFactory.decodeResource(mResources, R.drawable.sunny));
                     break;
@@ -697,7 +717,7 @@ public class UtilityClass {
                     weatherPicture = UtilityClass.bitmapToString(BitmapFactory.decodeResource(mResources, R.drawable.haze));
                     break;
                 default:
-                    DebugLog.e(TAG,"can not known weather information");
+                    DebugLog.e(TAG, "can not known weather information");
                     break;
             }
         }

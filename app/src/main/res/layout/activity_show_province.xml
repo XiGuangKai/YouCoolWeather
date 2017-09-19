@@ -3,18 +3,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/add_city_bg"
     android:paddingLeft="10dp"
     android:paddingRight="10dp"
-    android:paddingTop="10dp"
-    android:background="@drawable/add_city_bg">
+    android:paddingTop="10dp">
 
     <TextView
         android:id="@+id/addcity_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center"
         android:textColor="#fff"
-        android:textSize="24sp"
-        android:gravity="center" />
+        android:textSize="24sp" />
 
     <GridView
         android:id="@+id/addcity_gridview"
@@ -22,8 +22,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/addcity_title"
         android:layout_marginTop="10dp"
+        android:listSelector="@android:color/transparent"
         android:numColumns="3"
-        android:verticalSpacing="10dp"
-        android:listSelector="@android:color/transparent" />
+        android:verticalSpacing="10dp" />
 
 </RelativeLayout>

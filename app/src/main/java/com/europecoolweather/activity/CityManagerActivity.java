@@ -55,16 +55,16 @@ public class CityManagerActivity extends AppCompatActivity {
         initView();
         init();
         setInitImageLoader();
-        DebugLog.d(TAG,"onCreate() complete");
+        DebugLog.d(TAG, "onCreate() complete");
     }
 
     private void findView() {
-        mBackButton = (Button)findViewById(R.id.btn_back);
-        mDeleteAllCityButton = (Button)findViewById(R.id.btn_delete_all_city);
+        mBackButton = (Button) findViewById(R.id.btn_back);
+        mDeleteAllCityButton = (Button) findViewById(R.id.btn_delete_all_city);
         mGridView = (GridView) findViewById(R.id.gv_city_manager);
     }
 
-    private void initView(){
+    private void initView() {
         mBackButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -76,7 +76,7 @@ public class CityManagerActivity extends AppCompatActivity {
         mDeleteAllCityButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder alertDialog = new AlertDialog.Builder(mContext,R.style.ThemeAppCompatLightDialogAlertSelf);
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(mContext, R.style.ThemeAppCompatLightDialogAlertSelf);
                 alertDialog.setIcon(R.drawable.cool_weather_icon);
                 alertDialog.setTitle(R.string.dialog_delete_city_title);
                 alertDialog.setMessage(R.string.dialog_delete_city_message);
@@ -85,10 +85,10 @@ public class CityManagerActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         //清除所有保存到数据库信息
-                        UtilityClass.removeCityName(mContext,UtilityClass.DEFAULT_CITY_TYPE);
-                        UtilityClass.removeCityName(mContext,UtilityClass.CHOOSE_CITY_TYPE);
-                        UtilityClass.deleteDatabase(mContext,UtilityClass.YOU_COOL_WEATHER);
-                        DebugLog.d(TAG,"delete all city success");
+                        UtilityClass.removeCityName(mContext, UtilityClass.DEFAULT_CITY_TYPE);
+                        UtilityClass.removeCityName(mContext, UtilityClass.CHOOSE_CITY_TYPE);
+                        UtilityClass.deleteDatabase(mContext, UtilityClass.YOU_COOL_WEATHER);
+                        DebugLog.d(TAG, "delete all city success");
                         onResume();
                     }
                 });
@@ -96,7 +96,7 @@ public class CityManagerActivity extends AppCompatActivity {
                 alertDialog.setNegativeButton(R.string.dialog_negative_button_exit_app, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        DebugLog.d(TAG,"cancel delete all city");
+                        DebugLog.d(TAG, "cancel delete all city");
                     }
                 });
 
@@ -107,12 +107,12 @@ public class CityManagerActivity extends AppCompatActivity {
         });
     }
 
-    private void setInitImageLoader(){
+    private void setInitImageLoader() {
         Context context = getApplicationContext();
         initImageLoader(context);
     }
 
-    private void setHomePageActivity(){
+    private void setHomePageActivity() {
         for (int i = 0; i < mCityManagerEntityList.size(); i++) {
             if (mCityManagerEntityList.get(i).getCityName().equals(mCityManagerEntity.getCityName())) {
                 mCityManagerEntityList.remove(mCityManagerEntity);
@@ -121,20 +121,19 @@ public class CityManagerActivity extends AppCompatActivity {
         // 为每次打开城市管理页都会加载一个item问题的解决方案
         mCityManagerEntityList.add(mCityManagerEntityList.size(), mCityManagerEntity);
         cityManagerAdapter.setCityManager(mCityManagerEntityList);
-        for(int i = 0; i < mCityManagerEntityList.size(); i++ ){
+        for (int i = 0; i < mCityManagerEntityList.size(); i++) {
             DebugLog.i(TAG, mCityManagerEntityList.get(i).getCityName());
         }
         DebugLog.i(TAG, "mCityManagerEntityList.size() = " + mCityManagerEntityList.size());
         cityManagerAdapter.notifyDataSetChanged();
     }
 
-    private void init()
-    {
+    private void init() {
         mGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
-            public void onItemClick(AdapterView<?> parent, View view,int position, long id) {
-                DebugLog.d(TAG,"position = " + position + ", mCityManagerEntityList.size() - 1 = " + (mCityManagerEntityList.size() - 1));
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                DebugLog.d(TAG, "position = " + position + ", mCityManagerEntityList.size() - 1 = " + (mCityManagerEntityList.size() - 1));
                 if (UtilityClass.isNetWorkAvailable(mContext)) {
                     if (position == mCityManagerEntityList.size() - 1) {
                         intent = new Intent(mContext, ShowProvinceActivity.class);
@@ -142,7 +141,7 @@ public class CityManagerActivity extends AppCompatActivity {
                     } else {
                         intent = new Intent(mContext, WeatherShowActivity.class);
                         String cityName = mCityManagerEntityList.get(position).getCityName();
-                        if (!cityName.equals(UtilityClass.getCityName(mContext,UtilityClass.DEFAULT_CITY_TYPE))) {
+                        if (!cityName.equals(UtilityClass.getCityName(mContext, UtilityClass.DEFAULT_CITY_TYPE))) {
                             DebugLog.d(TAG, "select city name = " + cityName);
                             intent.putExtra("select_city_name", cityName);
 
@@ -151,25 +150,25 @@ public class CityManagerActivity extends AppCompatActivity {
 
                             //将显示级别设置为选择类型
                             UtilityClass.SHOW_CITY_WEATHER_INFO = UtilityClass.SHOW_CHOOSE_CITY;
-                        }else {
-                            DebugLog.d(TAG,"select city is default city");
+                        } else {
+                            DebugLog.d(TAG, "select city is default city");
                             UtilityClass.SHOW_CITY_WEATHER_INFO = UtilityClass.SHOW_DEFAULT_CITY;
                         }
                         //启动WeatherShow 界面
                         startActivity(intent);
                     }
                 } else {
-                    DebugLog.e(TAG,"network is not useful");
-                    UtilityClass.showToast(mContext,getString(R.string.toast_internet_no_useful_to_get_city));
+                    DebugLog.e(TAG, "network is not useful");
+                    UtilityClass.showToast(mContext, getString(R.string.toast_internet_no_useful_to_get_city));
                 }
             }
         });
-        cityManagerAdapter = new CityManagerAdapter(mContext,mCityManagerEntityList);
+        cityManagerAdapter = new CityManagerAdapter(mContext, mCityManagerEntityList);
         mGridView.setAdapter(cityManagerAdapter);
     }
 
     public void queryDataBase() {
-        SQLiteCityManager SQLite = new SQLiteCityManager(mContext,UtilityClass.YOU_COOL_DATABASE, null, 1);
+        SQLiteCityManager SQLite = new SQLiteCityManager(mContext, UtilityClass.YOU_COOL_DATABASE, null, 1);
 
         SQLiteDatabase db = SQLite.getWritableDatabase();
 
@@ -182,7 +181,7 @@ public class CityManagerActivity extends AppCompatActivity {
             imageUrl = cursor.getString(cursor.getColumnIndex("image_url"));
             weather = cursor.getString(cursor.getColumnIndex("weather"));
             temp = cursor.getString(cursor.getColumnIndex("temperature"));
-            DebugLog.v(TAG,"_id = " + _id +", cityName = " + cityName);
+            DebugLog.v(TAG, "_id = " + _id + ", cityName = " + cityName);
             setCityManagerEntity();
         }
         cursor.close();

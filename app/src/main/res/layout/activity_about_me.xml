@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    >
+    android:layout_height="match_parent">
 
     <com.europecoolweather.view.CircleImageView
         android:id="@+id/imageView1"
@@ -20,18 +19,18 @@
         android:layout_below="@+id/imageView1"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="15dp"
+        android:text="@string/app_name"
         android:textColor="#000"
-        android:textSize="20sp"
-        android:text="@string/app_name" />
+        android:textSize="20sp" />
 
     <LinearLayout
         android:id="@+id/LinearLayout_version_info"
-        android:layout_centerHorizontal="true"
-        android:layout_marginLeft="30dp"
-        android:layout_marginStart="30dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/textView1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="30dp"
+        android:layout_marginStart="30dp"
         android:layout_marginTop="30dp"
         android:orientation="horizontal">
 
@@ -39,17 +38,17 @@
             android:id="@+id/tv_about_version"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="@string/tv_about_version"
             android:textColor="#000"
-            android:textSize="20sp"
-            android:text="@string/tv_about_version" />
+            android:textSize="20sp" />
 
         <TextView
             android:id="@+id/tv_version_info"
-            android:textColor="#000"
-            android:textSize="20sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/about_version_info" />
+            android:text="@string/about_version_info"
+            android:textColor="#000"
+            android:textSize="20sp" />
 
     </LinearLayout>
 
@@ -68,9 +67,9 @@
             android:id="@+id/tv_about_author"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="@string/tv_about_author"
             android:textColor="#000"
-            android:textSize="20sp"
-            android:text="@string/tv_about_author" />
+            android:textSize="20sp" />
 
         <RelativeLayout
             android:layout_width="wrap_content"
@@ -78,11 +77,11 @@
 
             <TextView
                 android:id="@+id/about_me_tv"
-                android:textColor="#000"
-                android:textSize="20sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/about_me" />
+                android:text="@string/about_me"
+                android:textColor="#000"
+                android:textSize="20sp" />
 
             <Button
                 android:id="@+id/btn_search_author_blog"
@@ -90,21 +89,21 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/about_me_tv"
                 android:layout_marginBottom="15dp"
-                android:textSize="20sp"
                 android:background="#fff"
-                android:text="@string/tv_search_author_blog"/>
+                android:text="@string/tv_search_author_blog"
+                android:textSize="20sp" />
         </RelativeLayout>
 
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/LinearLayout_contact_author"
-        android:layout_marginLeft="30dp"
-        android:layout_marginStart="30dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/LinearLayout_about_author"
         android:layout_centerHorizontal="true"
+        android:layout_marginLeft="30dp"
+        android:layout_marginStart="30dp"
         android:layout_marginTop="80dp"
         android:orientation="horizontal">
 
@@ -112,17 +111,17 @@
             android:id="@+id/tv_contact_author"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="@string/tv_contact_author"
             android:textColor="#000"
-            android:textSize="20sp"
-            android:text="@string/tv_contact_author" />
+            android:textSize="20sp" />
 
         <TextView
             android:id="@+id/tv_contact_author_info"
-            android:textColor="#000"
-            android:textSize="20sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/about_contact_author_info" />
+            android:text="@string/about_contact_author_info"
+            android:textColor="#000"
+            android:textSize="20sp" />
 
     </LinearLayout>
 
@@ -132,7 +131,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
+        android:text="@string/author"
         android:textColor="#000"
-        android:textSize="10sp"
-        android:text="@string/author" />
+        android:textSize="10sp" />
 </RelativeLayout>

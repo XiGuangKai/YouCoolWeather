@@ -3,15 +3,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/item_todayc_bg"
     android:gravity="center"
-    android:padding="5dp"
-    android:background="@drawable/item_todayc_bg" >
+    android:padding="5dp">
 
     <TextView
+        android:id="@+id/citytext"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/citytext"
-        android:textSize="16sp"
-        android:textColor="@android:color/white" />
+        android:textColor="@android:color/white"
+        android:textSize="16sp" />
 
 </RelativeLayout>

@@ -110,13 +110,13 @@ public class WeatherShowActivity extends AppCompatActivity {
         findView();
         initView();
 
-        DebugLog.d(TAG,"onCreate() finished");
+        DebugLog.d(TAG, "onCreate() finished");
     }
 
     /**
      * 初始化各控件
      */
-    private void findView(){
+    private void findView() {
         bingPicImg = (ImageView) findViewById(R.id.bing_pic_img);
         iv_weather_picture = (ImageView) findViewById(R.id.iv_weather_picture);
         weatherLayout = (ScrollView) findViewById(R.id.weather_layout);
@@ -140,16 +140,16 @@ public class WeatherShowActivity extends AppCompatActivity {
         titleLocationButton = (Button) findViewById(R.id.location_button);
 
         //天气预警
-        mAlarmLevelText = (TextView)findViewById(R.id.alarm_level);
-        mAlarmStatusText = (TextView)findViewById(R.id.alarm_status);
-        mAlarmTitleText = (TextView)findViewById(R.id.alarm_title);
-        mAlarmInfoText = (TextView)findViewById(R.id.alarm_info);
+        mAlarmLevelText = (TextView) findViewById(R.id.alarm_level);
+        mAlarmStatusText = (TextView) findViewById(R.id.alarm_status);
+        mAlarmTitleText = (TextView) findViewById(R.id.alarm_title);
+        mAlarmInfoText = (TextView) findViewById(R.id.alarm_info);
         mAlarmLayout = (LinearLayout) findViewById(R.id.alarms_layout);
 
-        DebugLog.d(TAG,"findView() finished");
+        DebugLog.d(TAG, "findView() finished");
     }
 
-    private void initView(){
+    private void initView() {
         mLocationClient = new LocationClient(getApplicationContext());
         mLocationClient.registerLocationListener(new MyLocationListener());
 
@@ -160,8 +160,8 @@ public class WeatherShowActivity extends AppCompatActivity {
                 if (UtilityClass.isNetWorkAvailable(mContext) && UtilityClass.getRequestRunningPermissionStatus(mContext)) {
                     UtilityClass.isShowProgressDialog = false;
                     initWeatherData();
-                }else{
-                    DebugLog.e(TAG,"network is not available");
+                } else {
+                    DebugLog.e(TAG, "network is not available");
                     UtilityClass.showToast(mContext, getString(R.string.toast_detect_internet_no_useful));
 
 
@@ -185,46 +185,46 @@ public class WeatherShowActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 weatherLayout.setVisibility(View.INVISIBLE);
-                DebugLog.d(TAG,"get weather by location");
+                DebugLog.d(TAG, "get weather by location");
                 if (UtilityClass.isNetWorkAvailable(mContext)) {
                     //启动定位服务
                     startRequestLocation();
 
                     //设置选择的方式为定位方式
                     UtilityClass.SHOW_CITY_WEATHER_INFO = UtilityClass.SHOW_LOCATION_CITY;
-                }else{
-                    UtilityClass.showToast(mContext,getString(R.string.toast_detect_internet_no_useful));
+                } else {
+                    UtilityClass.showToast(mContext, getString(R.string.toast_detect_internet_no_useful));
                 }
             }
         });
     }
 
-    private void initWeatherData(){
+    private void initWeatherData() {
 
         //一定要在此处调用，不然后续swipeRefresh将会有出现空指针异常的风险
         updateShowWeatherInfo();
-        DebugLog.d(TAG,"update show weather info");
+        DebugLog.d(TAG, "update show weather info");
 
         if (UtilityClass.isNetWorkAvailable(mContext)) {
-            DebugLog.d(TAG,"network available start service");
+            DebugLog.d(TAG, "network available start service");
             //启动更新Service
             startAutoUpdateWeatherService();
 
             //注册广播
             registerUpdateWeatherInfoReceiver();
         } else {
-            DebugLog.e(TAG,"there is not available network and not start service");
+            DebugLog.e(TAG, "there is not available network and not start service");
         }
     }
 
     /**
      * 显示初始天气信息更新天气信息
      */
-    private void updateShowWeatherInfo(){
+    private void updateShowWeatherInfo() {
 
         //获取存储的默认的城市名字和选择的城市名字
-        String mDefaultCityName = UtilityClass.getCityName(mContext,UtilityClass.DEFAULT_CITY_TYPE);
-        String mChooseCityName = UtilityClass.getCityName(mContext,UtilityClass.CHOOSE_CITY_TYPE);
+        String mDefaultCityName = UtilityClass.getCityName(mContext, UtilityClass.DEFAULT_CITY_TYPE);
+        String mChooseCityName = UtilityClass.getCityName(mContext, UtilityClass.CHOOSE_CITY_TYPE);
 
         //当前代码块中的代码是显示哪一个城市的天气的选择机制.1、2、3、4共4条互相的配合使用，此选择机制四条缺少就会存在问题
         {
@@ -254,62 +254,62 @@ public class WeatherShowActivity extends AppCompatActivity {
         }
 
         //根据不同方式获取并且显示天气信息
-        DebugLog.d(TAG,"SHOW_CITY_WEATHER_INFO = " + UtilityClass.SHOW_CITY_WEATHER_INFO);
-        switch (UtilityClass.SHOW_CITY_WEATHER_INFO){
+        DebugLog.d(TAG, "SHOW_CITY_WEATHER_INFO = " + UtilityClass.SHOW_CITY_WEATHER_INFO);
+        switch (UtilityClass.SHOW_CITY_WEATHER_INFO) {
             case UtilityClass.SHOW_DEFAULT_CITY:
             case UtilityClass.SHOW_CHOOSE_CITY:
             case UtilityClass.SHOW_DATABASE_CITY:
 
                 String mWeatherDescription = null;
-                if (UtilityClass.SHOW_DEFAULT_CITY.equals(UtilityClass.SHOW_CITY_WEATHER_INFO)){
+                if (UtilityClass.SHOW_DEFAULT_CITY.equals(UtilityClass.SHOW_CITY_WEATHER_INFO)) {
                     DebugLog.d(TAG, "default city weather description");
                     mWeatherDescription = UtilityClass.queryDatabaseWhetherCityExists(mContext, mDefaultCityName);
                 }
 
-                if (UtilityClass.SHOW_CHOOSE_CITY.equals(UtilityClass.SHOW_CITY_WEATHER_INFO)){
-                    DebugLog.d(TAG,"choose city weather description");
-                    mWeatherDescription = UtilityClass.queryDatabaseWhetherCityExists(mContext,mChooseCityName);
+                if (UtilityClass.SHOW_CHOOSE_CITY.equals(UtilityClass.SHOW_CITY_WEATHER_INFO)) {
+                    DebugLog.d(TAG, "choose city weather description");
+                    mWeatherDescription = UtilityClass.queryDatabaseWhetherCityExists(mContext, mChooseCityName);
                 }
 
-                if (UtilityClass.SHOW_DATABASE_CITY.equals(UtilityClass.SHOW_CITY_WEATHER_INFO)){
-                    DebugLog.d(TAG,"database first city weather description");
+                if (UtilityClass.SHOW_DATABASE_CITY.equals(UtilityClass.SHOW_CITY_WEATHER_INFO)) {
+                    DebugLog.d(TAG, "database first city weather description");
                     mWeatherDescription = UtilityClass.queryDatabaseFirstId(mContext);
                 }
 
                 if (mWeatherDescription != null) {
                     // 有缓存时直接解析天气数据
                     Weather mWeatherInfo = UtilityClass.handleWeatherResponse(mWeatherDescription);
-                    if (mWeatherInfo != null){
+                    if (mWeatherInfo != null) {
                         String mDefaultWeatherCityName = mWeatherInfo.basic.cityName;
 
-                        DebugLog.d(TAG,"default weather city name = " + mDefaultWeatherCityName);
+                        DebugLog.d(TAG, "default weather city name = " + mDefaultWeatherCityName);
                         //先显示已有的Weather信息
                         showWeatherInfo(mWeatherInfo);
 
                         checkNetworkAndGetWeatherInfo(mDefaultWeatherCityName);
                     }
-                }else{
-                    DebugLog.e(TAG,"city weather description not exist");
+                } else {
+                    DebugLog.e(TAG, "city weather description not exist");
                 }
                 break;
             case UtilityClass.SHOW_LOCATION_CITY:
                 weatherLayout.setVisibility(View.INVISIBLE);
-                if (UtilityClass.getRequestRunningPermissionStatus(mContext)){
-                    DebugLog.d(TAG,"get weather info by location");
+                if (UtilityClass.getRequestRunningPermissionStatus(mContext)) {
+                    DebugLog.d(TAG, "get weather info by location");
                     if (UtilityClass.isNetWorkAvailable(mContext)) {
                         startRequestLocation();
-                    }else{
+                    } else {
                         if (!isBackgroundUpdate) {
-                            UtilityClass.showToast(mContext,getString(R.string.toast_detect_internet_no_useful));
+                            UtilityClass.showToast(mContext, getString(R.string.toast_detect_internet_no_useful));
                         }
                     }
-                }else {
-                    DebugLog.d(TAG,"get running permission before get weather info by location");
+                } else {
+                    DebugLog.d(TAG, "get running permission before get weather info by location");
                     requestSelfPermission();
                 }
                 break;
             default:
-                DebugLog.e(TAG,"default error");
+                DebugLog.e(TAG, "default error");
                 break;
         }
 
@@ -322,7 +322,7 @@ public class WeatherShowActivity extends AppCompatActivity {
             Glide.with(this).load(bingPic).into(bingPicImg);
         } else {
             if (UtilityClass.isNetWorkAvailable(mContext)) {
-                DebugLog.d(TAG,"update background picture by internet");
+                DebugLog.d(TAG, "update background picture by internet");
                 loadBingPic();
             }
         }
@@ -332,12 +332,12 @@ public class WeatherShowActivity extends AppCompatActivity {
     * 检查当前网络状态更新获取城市信息
     * @param cityName 要获取天气的城市名字
     */
-    private void checkNetworkAndGetWeatherInfo(String cityName){
+    private void checkNetworkAndGetWeatherInfo(String cityName) {
         if (UtilityClass.isNetWorkAvailable(mContext)) {
-            DebugLog.d(TAG,"network is available to get the weather info cityName = " + cityName);
+            DebugLog.d(TAG, "network is available to get the weather info cityName = " + cityName);
             getWeatherInfo(cityName);
         } else {
-            DebugLog.e(TAG,"network is not available");
+            DebugLog.e(TAG, "network is not available");
             if (!isBackgroundUpdate) {
                 UtilityClass.showToast(mContext, getString(R.string.toast_detect_internet_no_useful));
             }
@@ -351,17 +351,18 @@ public class WeatherShowActivity extends AppCompatActivity {
 
     /**
      * 根据城市名称请求城市天气信息
+     *
      * @param cityName 需要获取天气的城市名字
      */
     public void getWeatherInfo(final String cityName) {
 
-        DebugLog.d(TAG,"get " + cityName + " weather info");
+        DebugLog.d(TAG, "get " + cityName + " weather info");
 
         //显示progressDialog
-        UtilityClass.showProgressDialog(mContext,getString(R.string.progress_dialog_updating_weather_info));
+        UtilityClass.showProgressDialog(mContext, getString(R.string.progress_dialog_updating_weather_info));
 
         //拼凑访问和风天气的API地址
-        String weatherUrl = "https://free-api.heweather.com/v5/weather?city="+cityName+"&key=6616624b9a104d3aa3afe5dfef16783c";
+        String weatherUrl = "https://free-api.heweather.com/v5/weather?city=" + cityName + "&key=6616624b9a104d3aa3afe5dfef16783c";
 
         HttpUtil.sendOkHttpRequest(weatherUrl, new Callback() {
             @Override
@@ -376,13 +377,13 @@ public class WeatherShowActivity extends AppCompatActivity {
                             showWeatherInfo(weather);
 
                             //将数据更新到数据库
-                            UtilityClass.insertOrUpdateDatabase(mContext,weather,UtilityClass.setWeatherPictureToString(mContext,weather.now.more.info),responseText);
+                            UtilityClass.insertOrUpdateDatabase(mContext, weather, UtilityClass.setWeatherPictureToString(mContext, weather.now.more.info), responseText);
 
                             //弹窗提示信息已经更新
-                            UtilityClass.showToast(mContext,getString(R.string.toast_weather_info_finished));
+                            UtilityClass.showToast(mContext, getString(R.string.toast_weather_info_finished));
                         } else {
-                            DebugLog.e(TAG,"get weather info failed");
-                            UtilityClass.showToast(mContext,getString(R.string.toast_get_weather_info_failed));
+                            DebugLog.e(TAG, "get weather info failed");
+                            UtilityClass.showToast(mContext, getString(R.string.toast_get_weather_info_failed));
                         }
 
                         //关闭Progress Dialog
@@ -402,8 +403,8 @@ public class WeatherShowActivity extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        DebugLog.e(TAG,"OkHttpRequest failed to get the weather info");
-                        UtilityClass.showToast(mContext,getString(R.string.toast_get_weather_info_failed));
+                        DebugLog.e(TAG, "OkHttpRequest failed to get the weather info");
+                        UtilityClass.showToast(mContext, getString(R.string.toast_get_weather_info_failed));
 
                         //关闭Progress Dialog
                         UtilityClass.closeProgressDialog();
@@ -418,20 +419,20 @@ public class WeatherShowActivity extends AppCompatActivity {
         });
         loadBingPic();
 
-        DebugLog.d(TAG,"getWeatherInfo() finished");
+        DebugLog.d(TAG, "getWeatherInfo() finished");
     }
 
     @Override
-    protected void onResume(){
+    protected void onResume() {
         super.onResume();
 
         //显示数据
         initWeatherData();
 
         //在没有网络的半个小时时间内自动检测网络并且检测到网络存在时自动更新数据
-        if (!UtilityClass.isNetWorkAvailable(mContext)){
-            if(mCountDownTimer == null){
-                mCountDownTimer = new CountDownTimer(UtilityClass.CYCLE_INTERVAL_TIME, 5*1000){
+        if (!UtilityClass.isNetWorkAvailable(mContext)) {
+            if (mCountDownTimer == null) {
+                mCountDownTimer = new CountDownTimer(UtilityClass.CYCLE_INTERVAL_TIME, 5 * 1000) {
                     @Override
                     public void onTick(long millisUntilFinished) {
 
@@ -446,10 +447,10 @@ public class WeatherShowActivity extends AppCompatActivity {
                             initWeatherData();
 
                             //如果循环过程中网络好了，那么最多再循环一次，就取消循环
-                            if (UtilityClass.isNetWorkAvailable(mContext)){
+                            if (UtilityClass.isNetWorkAvailable(mContext)) {
                                 isCountNetworkOK++;
-                                if (isCountNetworkOK >= 1){
-                                    DebugLog.d(TAG,"cancel timer");
+                                if (isCountNetworkOK >= 1) {
+                                    DebugLog.d(TAG, "cancel timer");
                                     mCountDownTimer.cancel();
                                     mCountDownTimer = null;
                                     isBackgroundUpdate = false;
@@ -457,14 +458,15 @@ public class WeatherShowActivity extends AppCompatActivity {
                             }
                         }
                     }
+
                     @Override
                     public void onFinish() {
-                        DebugLog.d(TAG,"Timer is finished");
+                        DebugLog.d(TAG, "Timer is finished");
                         mCountDownTimer.cancel();
                         mCountDownTimer = null;
                         isBackgroundUpdate = false;
 
-                        UtilityClass.showToast(mContext,getString(R.string.toast_no_useful_thirty_minutes));
+                        UtilityClass.showToast(mContext, getString(R.string.toast_no_useful_thirty_minutes));
                         finish();
                     }
                 }.start();
@@ -473,15 +475,15 @@ public class WeatherShowActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onNewIntent(Intent intent){
+    protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
         String selectCityName = intent.getStringExtra("select_city_name");
-        if (selectCityName != null && !selectCityName.isEmpty()){
+        if (selectCityName != null && !selectCityName.isEmpty()) {
             //非后台更新，显示Toast
             isBackgroundUpdate = false;
 
             //获取天气数据
-            DebugLog.d(TAG,"select city name is " + selectCityName);
+            DebugLog.d(TAG, "select city name is " + selectCityName);
             checkNetworkAndGetWeatherInfo(selectCityName);
         }
     }
@@ -516,11 +518,12 @@ public class WeatherShowActivity extends AppCompatActivity {
             }
         });
 
-        DebugLog.d(TAG,"loadBingPic() finished");
+        DebugLog.d(TAG, "loadBingPic() finished");
     }
 
     /**
      * 处理并展示Weather实体类中的数据
+     *
      * @param weather Weather类的对象
      */
     private void showWeatherInfo(Weather weather) {
@@ -531,7 +534,7 @@ public class WeatherShowActivity extends AppCompatActivity {
             String weatherInfo = weather.now.more.info;
 
             titleCity.setText(cityName);
-            iv_weather_picture.setImageBitmap(UtilityClass.stringToBitmap(UtilityClass.setWeatherPictureToString(mContext,weather.now.more.info)));
+            iv_weather_picture.setImageBitmap(UtilityClass.stringToBitmap(UtilityClass.setWeatherPictureToString(mContext, weather.now.more.info)));
             degreeText.setText(degree);
             weatherInfoText.setText(weatherInfo);
             forecastLayout.removeAllViews();
@@ -550,7 +553,7 @@ public class WeatherShowActivity extends AppCompatActivity {
                 infoText.setText(forecast.more.info);
 
                 //根据天气状况填充图片
-                imageView.setImageBitmap(UtilityClass.stringToBitmap(UtilityClass.setWeatherPictureToString(mContext,forecast.more.info)));
+                imageView.setImageBitmap(UtilityClass.stringToBitmap(UtilityClass.setWeatherPictureToString(mContext, forecast.more.info)));
 
                 //温度填充
                 StringBuilder stringBuilder = new StringBuilder();
@@ -592,25 +595,25 @@ public class WeatherShowActivity extends AppCompatActivity {
                 mAlarmInfoText.setText(alarmInfo);
             }
             weatherLayout.setVisibility(View.VISIBLE);
-        }else {
-            DebugLog.e(TAG,"weather is null");
-            UtilityClass.showToast(mContext,getString(R.string.toast_show_weather_info_failed));
+        } else {
+            DebugLog.e(TAG, "weather is null");
+            UtilityClass.showToast(mContext, getString(R.string.toast_show_weather_info_failed));
         }
     }
 
     /**
      * 启动Service更新天气信息
-     * */
-    private void startAutoUpdateWeatherService(){
-        DebugLog.d(TAG,"start auto update service");
+     */
+    private void startAutoUpdateWeatherService() {
+        DebugLog.d(TAG, "start auto update service");
         autoUpdateWeatherServiceIntent = new Intent(this, AutoUpdateWeatherService.class);
         startService(autoUpdateWeatherServiceIntent);
     }
 
     /**
      * 停止Service更新天气信息
-     * */
-    private void stopAutoUpdateWeatherService(){
+     */
+    private void stopAutoUpdateWeatherService() {
         if (autoUpdateWeatherServiceIntent != null) {
             DebugLog.d(TAG, "stop auto update service");
             stopService(autoUpdateWeatherServiceIntent);
@@ -619,74 +622,74 @@ public class WeatherShowActivity extends AppCompatActivity {
 
     /**
      * 请求运行时权限
-     * */
-    private void requestSelfPermission(){
+     */
+    private void requestSelfPermission() {
 
         List<String> permissionList = new ArrayList<>();
 
         if (ContextCompat.checkSelfPermission(mContext, Manifest.permission.ACCESS_FINE_LOCATION) !=
-                PackageManager.PERMISSION_GRANTED){
+                PackageManager.PERMISSION_GRANTED) {
             permissionList.add(Manifest.permission.ACCESS_FINE_LOCATION);
         }
 
-        if (ContextCompat.checkSelfPermission(mContext,Manifest.permission.READ_PHONE_STATE)!=
-                PackageManager.PERMISSION_GRANTED){
+        if (ContextCompat.checkSelfPermission(mContext, Manifest.permission.READ_PHONE_STATE) !=
+                PackageManager.PERMISSION_GRANTED) {
             permissionList.add(Manifest.permission.READ_PHONE_STATE);
         }
 
-        if (ContextCompat.checkSelfPermission(mContext,Manifest.permission.WRITE_EXTERNAL_STORAGE) !=
-                PackageManager.PERMISSION_GRANTED){
+        if (ContextCompat.checkSelfPermission(mContext, Manifest.permission.WRITE_EXTERNAL_STORAGE) !=
+                PackageManager.PERMISSION_GRANTED) {
             permissionList.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
         }
 
-        if (!permissionList.isEmpty()){
-            DebugLog.d(TAG,"request running permission");
+        if (!permissionList.isEmpty()) {
+            DebugLog.d(TAG, "request running permission");
             String[] permissions = permissionList.toArray(new String[permissionList.size()]);
-            ActivityCompat.requestPermissions(WeatherShowActivity.this,permissions,1);
-        }else{
+            ActivityCompat.requestPermissions(WeatherShowActivity.this, permissions, 1);
+        } else {
 
-            UtilityClass.setRequestRunningPermissionStatus(mContext,true);
+            UtilityClass.setRequestRunningPermissionStatus(mContext, true);
 
-            DebugLog.d(TAG,"no need to request running permission");
+            DebugLog.d(TAG, "no need to request running permission");
             if (UtilityClass.isNetWorkAvailable(mContext)) {
                 startRequestLocation();
-            }else{
+            } else {
                 if (!isBackgroundUpdate) {
-                    UtilityClass.showToast(mContext,getString(R.string.toast_detect_internet_no_useful));
+                    UtilityClass.showToast(mContext, getString(R.string.toast_detect_internet_no_useful));
                 }
             }
         }
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permission,@NonNull int[] grantResults){
-        switch (requestCode){
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permission, @NonNull int[] grantResults) {
+        switch (requestCode) {
             case 1:
-                if (grantResults.length > 0){
-                    for (int result:grantResults){
-                        if (result != PackageManager.PERMISSION_GRANTED){
-                            DebugLog.d(TAG,"need to allow all permission");
-                            UtilityClass.showToast(mContext,getString(R.string.toast_please_allow_all_permission));
+                if (grantResults.length > 0) {
+                    for (int result : grantResults) {
+                        if (result != PackageManager.PERMISSION_GRANTED) {
+                            DebugLog.d(TAG, "need to allow all permission");
+                            UtilityClass.showToast(mContext, getString(R.string.toast_please_allow_all_permission));
 
                             finish();
                             return;
                         }
                     }
 
-                    DebugLog.d(TAG,"request permissions result is ok");
+                    DebugLog.d(TAG, "request permissions result is ok");
 
-                    UtilityClass.setRequestRunningPermissionStatus(mContext,true);
+                    UtilityClass.setRequestRunningPermissionStatus(mContext, true);
 
                     if (UtilityClass.isNetWorkAvailable(mContext)) {
                         startRequestLocation();
-                    }else{
+                    } else {
                         if (!isBackgroundUpdate) {
-                            UtilityClass.showToast(mContext,getString(R.string.toast_detect_internet_no_useful));
+                            UtilityClass.showToast(mContext, getString(R.string.toast_detect_internet_no_useful));
                         }
                     }
-                }else {
-                    DebugLog.e(TAG,"request permission error");
-                    UtilityClass.showToast(mContext,getString(R.string.toast_allow_permission_error));
+                } else {
+                    DebugLog.e(TAG, "request permission error");
+                    UtilityClass.showToast(mContext, getString(R.string.toast_allow_permission_error));
                     finish();
                 }
                 break;
@@ -695,26 +698,26 @@ public class WeatherShowActivity extends AppCompatActivity {
         }
     }
 
-    private void startRequestLocation(){
+    private void startRequestLocation() {
         //开启定位Progress Dialog
-        UtilityClass.showProgressDialog(mContext,getString(R.string.progress_dialog_being_location));
+        UtilityClass.showProgressDialog(mContext, getString(R.string.progress_dialog_being_location));
 
-        DebugLog.d(TAG,"start request location");
+        DebugLog.d(TAG, "start request location");
         initLocation();
         mLocationClient.start();
     }
 
-    private void stopRequestLocation(){
-        if (mLocationClient.isStarted()){
-            DebugLog.d(TAG,"stop request location");
+    private void stopRequestLocation() {
+        if (mLocationClient.isStarted()) {
+            DebugLog.d(TAG, "stop request location");
             mLocationClient.stop();
-        }else{
-            DebugLog.d(TAG,"request location is not running,no need to stop it");
+        } else {
+            DebugLog.d(TAG, "request location is not running,no need to stop it");
         }
     }
 
-    private void initLocation(){
-        DebugLog.d(TAG,"initLocation() enter");
+    private void initLocation() {
+        DebugLog.d(TAG, "initLocation() enter");
         int SCAN_SPAN_TIME = 5000;
         LocationClientOption locationClientOption = new LocationClientOption();
         locationClientOption.setScanSpan(SCAN_SPAN_TIME);
@@ -734,7 +737,7 @@ public class WeatherShowActivity extends AppCompatActivity {
             //关闭定位Progress Dialog
             UtilityClass.closeProgressDialog();
 
-            switch (location.getLocType()){
+            switch (location.getLocType()) {
                 case BDLocation.TypeGpsLocation://GPS定位结果
                 case BDLocation.TypeNetWorkLocation://网络定位结果
                 case BDLocation.TypeOffLineLocation:// 离线定位结果
@@ -747,11 +750,11 @@ public class WeatherShowActivity extends AppCompatActivity {
                             .append("street:").append(location.getStreet()).append("\n")
                             .append("targeting:");
 
-                    if (BDLocation.TypeGpsLocation == location.getLocType()){
+                    if (BDLocation.TypeGpsLocation == location.getLocType()) {
                         currentPosition.append("GPS");
-                    }else if (BDLocation.TypeNetWorkLocation == location.getLocType()){
+                    } else if (BDLocation.TypeNetWorkLocation == location.getLocType()) {
                         currentPosition.append("internet");
-                    }else if (BDLocation.TypeOffLineLocation == location.getLocType()) {
+                    } else if (BDLocation.TypeOffLineLocation == location.getLocType()) {
                         currentPosition.append("offline location");
                     }
                     break;
@@ -783,7 +786,7 @@ public class WeatherShowActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onStop(){
+    protected void onStop() {
         super.onStop();
 
         //停止定位
@@ -797,13 +800,13 @@ public class WeatherShowActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onDestroy(){
+    protected void onDestroy() {
         super.onDestroy();
         /*
         * 取消所有申请的资源
         * */
-        if (mCountDownTimer != null){
-            DebugLog.d(TAG,"cancel timer");
+        if (mCountDownTimer != null) {
+            DebugLog.d(TAG, "cancel timer");
             mCountDownTimer.cancel();
             mCountDownTimer = null;
         }
@@ -814,18 +817,18 @@ public class WeatherShowActivity extends AppCompatActivity {
     /**
      * 注册广播接收器
      */
-    private void registerUpdateWeatherInfoReceiver(){
+    private void registerUpdateWeatherInfoReceiver() {
         IntentFilter filter = new IntentFilter();
         filter.addAction("com.europecoolweather.updateWeatherInfo.BROADCAST");
         updateWeatherInfoBroadcastReceiver = new UpdateWeatherInfoBroadcastReceiver();
         registerReceiver(updateWeatherInfoBroadcastReceiver, filter);
-        DebugLog.d(TAG,"register Broadcast Receiver");
+        DebugLog.d(TAG, "register Broadcast Receiver");
     }
 
     /**
-    * 取消广播注册
-    * */
-    private void unregisterUpdateWeatherInfoReceiver(){
+     * 取消广播注册
+     */
+    private void unregisterUpdateWeatherInfoReceiver() {
         if (updateWeatherInfoBroadcastReceiver != null) {
             unregisterReceiver(updateWeatherInfoBroadcastReceiver);
             DebugLog.d(TAG, "unregister Broadcast Receiver");
@@ -833,18 +836,18 @@ public class WeatherShowActivity extends AppCompatActivity {
     }
 
     /**
-    * Service 发送更新天气信息广播在此处理
-    * */
-    private class UpdateWeatherInfoBroadcastReceiver extends BroadcastReceiver{
+     * Service 发送更新天气信息广播在此处理
+     */
+    private class UpdateWeatherInfoBroadcastReceiver extends BroadcastReceiver {
         @Override
-        public void onReceive(Context context,Intent intent){
-            if ("com.europecoolweather.updateWeatherInfo.BROADCAST".equals(intent.getAction())){
+        public void onReceive(Context context, Intent intent) {
+            if ("com.europecoolweather.updateWeatherInfo.BROADCAST".equals(intent.getAction())) {
                 SharedPreferences mDefaultSharedPreferences = PreferenceManager.getDefaultSharedPreferences(mContext);
                 String weatherString = mDefaultSharedPreferences.getString("DefaultCityWeatherInfo", null);
 
                 if (weatherString != null) {
                     // 有缓存时直接解析天气数据
-                    DebugLog.d(TAG,"receive broadcast to update the weather info");
+                    DebugLog.d(TAG, "receive broadcast to update the weather info");
                     Weather weather = UtilityClass.handleWeatherResponse(weatherString);
 
                     //先显示已有的Weather信息

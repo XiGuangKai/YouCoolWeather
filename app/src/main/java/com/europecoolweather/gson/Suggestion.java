@@ -4,9 +4,9 @@ import com.google.gson.annotations.SerializedName;
 
 /**
  * Created by GuangKai on 2017/8/2.
- *
+ * <p>
  * 需求：
- *      Gson解析Suggestion信息
+ * Gson解析Suggestion信息
  */
 
 public class Suggestion {
@@ -42,7 +42,7 @@ public class Suggestion {
 
     }
 
-    public class UVIntensity{
+    public class UVIntensity {
         @SerializedName("brf")
         public String brf;
         @SerializedName("txt")

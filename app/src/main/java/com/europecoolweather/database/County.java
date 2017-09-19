@@ -5,7 +5,7 @@ import org.litepal.crud.DataSupport;
 /**
  * Created by GuangKai on 2017/8/2.
  * 需求：
- *      创建县的类表，用来表示id，县名，天气id，所述市Id
+ * 创建县的类表，用来表示id，县名，天气id，所述市Id
  */
 
 public class County extends DataSupport {
@@ -14,35 +14,35 @@ public class County extends DataSupport {
     private String weatherId;
     private int cityId;
 
-    public int getId(){
+    public int getId() {
         return id;
     }
 
-    public void setId(int id){
+    public void setId(int id) {
         this.id = id;
     }
 
-    public String getCountyName(){
+    public String getCountyName() {
         return countyName;
     }
 
-    public void setCountyName(String countyName){
+    public void setCountyName(String countyName) {
         this.countyName = countyName;
     }
 
-    public String getWeatherId(){
+    public String getWeatherId() {
         return weatherId;
     }
 
-    public void setWeatherId(String weatherId){
+    public void setWeatherId(String weatherId) {
         this.weatherId = weatherId;
     }
 
-    public int getCityId(){
+    public int getCityId() {
         return cityId;
     }
 
-    public void setCityId(int cityId){
+    public void setCityId(int cityId) {
         this.cityId = cityId;
     }
 }

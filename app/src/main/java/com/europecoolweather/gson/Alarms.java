@@ -4,9 +4,9 @@ import com.google.gson.annotations.SerializedName;
 
 /**
  * Created by guangkai on 2017/8/8.
- *
+ * <p>
  * 需求：
- *      Gson解析警告信息，将获取到的警告信息存储下来
+ * Gson解析警告信息，将获取到的警告信息存储下来
  */
 
 public class Alarms {

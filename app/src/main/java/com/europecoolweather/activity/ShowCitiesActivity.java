@@ -48,19 +48,18 @@ public class ShowCitiesActivity extends AppCompatActivity {
         mContext = ShowCitiesActivity.this;
         mShowCitiesActivity = ShowCitiesActivity.this;
         findView();
-        DebugLog.d(TAG,"onCreate() complete");
+        DebugLog.d(TAG, "onCreate() complete");
     }
 
-    private void findView(){
-        showCityTitle = (TextView)findViewById(R.id.show_city_title);
-        DebugLog.d(TAG,"findView() complete");
+    private void findView() {
+        showCityTitle = (TextView) findViewById(R.id.show_city_title);
+        DebugLog.d(TAG, "findView() complete");
     }
 
-    private void initView()
-    {
+    private void initView() {
         showCityTitle.setText(R.string.tv_title_select_city);
         UtilityClass.currentLevel = UtilityClass.LEVEL_CITY;
-        GridView addCityGrid  = (GridView) findViewById(R.id.show_city_gridview);
+        GridView addCityGrid = (GridView) findViewById(R.id.show_city_gridview);
 
         GridAddCityAdapter mGridAddCityAdapter = new GridAddCityAdapter(mContext);
 
@@ -96,45 +95,45 @@ public class ShowCitiesActivity extends AppCompatActivity {
                     //将level设置成LEVEL_CITY
                     UtilityClass.currentLevel = UtilityClass.LEVEL_COUNTY;
                 } else {
-                    DebugLog.e(TAG,"network is not useful");
-                    UtilityClass.showToast(mContext,getString(R.string.toast_internet_no_useful_to_get_city));
+                    DebugLog.e(TAG, "network is not useful");
+                    UtilityClass.showToast(mContext, getString(R.string.toast_internet_no_useful_to_get_city));
                 }
             }
         });
 
-        DebugLog.d(TAG,"initView() complete");
+        DebugLog.d(TAG, "initView() complete");
     }
 
     @Override
-    protected void onResume(){
+    protected void onResume() {
         super.onResume();
         //解决当重新返回省份选择界面时，由于level的问题导致点击没有效果
         UtilityClass.currentLevel = UtilityClass.LEVEL_CITY;
         if (UtilityClass.isNetWorkAvailable(mContext)) {
             getCitiesList();
-        }else{
-            DebugLog.e(TAG,"network is not useful");
-            UtilityClass.showToast(mContext,getString(R.string.toast_internet_no_useful_to_get_city));
+        } else {
+            DebugLog.e(TAG, "network is not useful");
+            UtilityClass.showToast(mContext, getString(R.string.toast_internet_no_useful_to_get_city));
         }
-        DebugLog.d(TAG,"onResume() complete");
+        DebugLog.d(TAG, "onResume() complete");
     }
 
     @Override
-    protected void onDestroy(){
+    protected void onDestroy() {
         super.onDestroy();
         //清除不必要的对象
-        if (mShowCitiesActivity != null){
+        if (mShowCitiesActivity != null) {
             mShowCitiesActivity = null;
         }
     }
 
-    Handler mHandler = new Handler(){
+    Handler mHandler = new Handler() {
         @Override
-        public void handleMessage(Message msg){
+        public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            switch (msg.what){
+            switch (msg.what) {
                 case UtilityClass.MESSAGE_SUCCESS:
-                    DebugLog.d(TAG,"get cities successfully");
+                    DebugLog.d(TAG, "get cities successfully");
                     //移除消息
                     removeMessages(UtilityClass.MESSAGE_SUCCESS);
 
@@ -145,7 +144,7 @@ public class ShowCitiesActivity extends AppCompatActivity {
                     initView();
                     break;
                 case UtilityClass.MESSAGE_FAILED:
-                    DebugLog.e(TAG,"get cities list failed");
+                    DebugLog.e(TAG, "get cities list failed");
 
                     //移除消息
                     removeMessages(UtilityClass.MESSAGE_FAILED);
@@ -155,7 +154,7 @@ public class ShowCitiesActivity extends AppCompatActivity {
 
                     break;
                 default:
-                    DebugLog.e(TAG,"an unknown error occurred");
+                    DebugLog.e(TAG, "an unknown error occurred");
 
                     //关闭动态ProgressDialog
                     UtilityClass.closeProgressDialog();
@@ -173,13 +172,13 @@ public class ShowCitiesActivity extends AppCompatActivity {
         int i = 0;
         //市列表
         List<City> cityList = DataSupport.where("provinceCode = ?", String.valueOf(UtilityClass.provinceCode)).find(City.class);
-        DebugLog.d(TAG,"city list size = " + cityList.size() + ", provinceCode = " + UtilityClass.provinceCode);
+        DebugLog.d(TAG, "city list size = " + cityList.size() + ", provinceCode = " + UtilityClass.provinceCode);
 
         if (cityList.size() > 0 && cityList.size() < 30) {
 
             GridAddCityAdapter.citiesName = new String[cityList.size()];
             for (City city : cityList) {
-                DebugLog.d(TAG," i = " + i);
+                DebugLog.d(TAG, " i = " + i);
                 GridAddCityAdapter.citiesName[i] = city.getCityName();
                 i++;
             }
@@ -187,14 +186,14 @@ public class ShowCitiesActivity extends AppCompatActivity {
             UtilityClass.currentLevel = UtilityClass.LEVEL_CITY;
 
             cityList.clear();
-            DebugLog.d(TAG,"add the dataList finished from the database");
+            DebugLog.d(TAG, "add the dataList finished from the database");
 
             Message msg = new Message();
             msg.what = UtilityClass.MESSAGE_SUCCESS;
             mHandler.sendMessage(msg);
         } else {
             String address = "http://guolin.tech/api/china/" + UtilityClass.provinceCode;
-            DebugLog.d(TAG,"address = " + address);
+            DebugLog.d(TAG, "address = " + address);
 
             DataSupport.deleteAll(City.class);
             getCitiesByInternet(address);
@@ -205,28 +204,28 @@ public class ShowCitiesActivity extends AppCompatActivity {
      * 根据传入的地址和类型从服务器上查询省市县数据
      */
     private void getCitiesByInternet(String address) {
-        UtilityClass.showProgressDialog(mContext,getString(R.string.progress_dialog_content_get_cities));
+        UtilityClass.showProgressDialog(mContext, getString(R.string.progress_dialog_content_get_cities));
 
         HttpUtil.sendOkHttpRequest(address, new Callback() {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String responseText = response.body().string();
-                boolean result = UtilityClass.handleCityResponse(responseText,UtilityClass.provinceCode);
+                boolean result = UtilityClass.handleCityResponse(responseText, UtilityClass.provinceCode);
 
-                DebugLog.d(TAG,"Response result = " + result);
+                DebugLog.d(TAG, "Response result = " + result);
                 if (result) {
-                    DebugLog.d(TAG,"type is cities call getCitiesList()");
+                    DebugLog.d(TAG, "type is cities call getCitiesList()");
                     getCitiesList();
                 }
             }
 
             @Override
             public void onFailure(Call call, IOException e) {
-                DebugLog.e(TAG,"internet error");
+                DebugLog.e(TAG, "internet error");
                 Message msg = new Message();
                 msg.what = UtilityClass.MESSAGE_FAILED;
                 mHandler.sendMessage(msg);
-                UtilityClass.showToast(mContext,getString(R.string.toast_internet_error));
+                UtilityClass.showToast(mContext, getString(R.string.toast_internet_error));
             }
         });
     }

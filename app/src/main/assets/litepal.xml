@@ -1,9 +1,9 @@
 <litepal>
-    <dbname value="province_city_county_weather"/>
-    <version value="1"/>
+    <dbname value="province_city_county_weather" />
+    <version value="1" />
     <list>
-        <mapping class="com.europecoolweather.database.Province"/>
-        <mapping class="com.europecoolweather.database.City"/>
-        <mapping class="com.europecoolweather.database.County"/>
+        <mapping class="com.europecoolweather.database.Province" />
+        <mapping class="com.europecoolweather.database.City" />
+        <mapping class="com.europecoolweather.database.County" />
     </list>
 </litepal>

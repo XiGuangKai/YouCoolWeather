@@ -4,9 +4,9 @@ import com.google.gson.annotations.SerializedName;
 
 /**
  * Created by guangkai on 2017/8/2.
- *
+ * <p>
  * 需求：
- *      Gson解析Forecast信息
+ * Gson解析Forecast信息
  */
 
 public class Forecast {

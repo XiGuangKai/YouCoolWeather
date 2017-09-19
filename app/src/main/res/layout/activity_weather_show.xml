@@ -8,8 +8,8 @@
         android:id="@+id/bing_pic_img"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scaleType="centerCrop"
-        android:contentDescription="@string/app_name"/>
+        android:contentDescription="@string/app_name"
+        android:scaleType="centerCrop" />
 
     <android.support.v4.widget.DrawerLayout
         android:id="@+id/drawer_layout"
@@ -25,14 +25,14 @@
                 android:id="@+id/weather_layout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:scrollbars="none"
-                android:overScrollMode="never">
+                android:overScrollMode="never"
+                android:scrollbars="none">
 
                 <LinearLayout
-                    android:orientation="vertical"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fitsSystemWindows="true">
+                    android:fitsSystemWindows="true"
+                    android:orientation="vertical">
 
                     <include layout="@layout/title" />
 
@@ -43,7 +43,7 @@
                     <include layout="@layout/forecast" />
 
                     <!--天气预警窗口-->
-                    <include layout="@layout/alarms"/>
+                    <include layout="@layout/alarms" />
 
                     <!--天气质量窗口-->
                     <!--<include layout="@layout/aqi" />-->
@@ -62,8 +62,7 @@
             android:name="com.europecoolweather.Fragment.MainFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_gravity="start"
-            />
+            android:layout_gravity="start" />
 
     </android.support.v4.widget.DrawerLayout>
 

@@ -16,9 +16,9 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 
 /**
  * Created by GuangKai on 2017/8/15.
- *
+ * <p>
  * 需求：
- *      Image加载
+ * Image加载
  */
 
 public class CHImageView extends ImageView {
@@ -33,8 +33,7 @@ public class CHImageView extends ImageView {
     /**
      * 不设置将使用默认图片 设置下载中，与加载失败的图片,
      *
-     * @param downlding
-     *            加载?? * @param failureId 加载失败
+     * @param downlding 加载?? * @param failureId 加载失败
      */
     public void setDefultDownLoadAndFailureImage(int downlding, int failureId) {
         downLoadingImageId = downlding;
@@ -56,8 +55,7 @@ public class CHImageView extends ImageView {
     /**
      * 对外接口，用于调用ImageView的异步下载图片功?? *
      *
-     * @param url
-     *            图片的URL
+     * @param url 图片的URL
      */
     public void loadImage(String url) {
 
@@ -68,7 +66,7 @@ public class CHImageView extends ImageView {
                 .showImageOnFail(downLoadingImagefailureId)
                 .bitmapConfig(Bitmap.Config.RGB_565)
                 .build();
-        ImageLoader.getInstance().displayImage(url, this,options);
+        ImageLoader.getInstance().displayImage(url, this, options);
 //
 //		ImageLoader.getInstance().loadImage(url, options,
 //				new ImageLoadingListener() {
